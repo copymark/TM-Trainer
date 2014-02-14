@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="lgLcdSDK">
+      <UniqueIdentifier>{d678af47-58df-4bb3-8ecb-5968589fca33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lgLcdSDK\LCDUI">
+      <UniqueIdentifier>{8dad7bda-62b9-4222-a96f-7043c145ae9a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDUI.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDAnimatedBitmap.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDBase.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDBitmap.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDCollection.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDColorProgressBar.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDColorText.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDConnection.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDGfxBase.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDGfxColor.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDGfxMono.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDIcon.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDOutput.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDPage.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDPaginateText.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDPopup.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDProgressBar.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDScrollingText.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDSkinnedProgressBar.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDStreamingText.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\LCDUI\LCDText.h">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\lglcd.h">
+      <Filter>lgLcdSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\EZ_LCD.h">
+      <Filter>lgLcdSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\EZ_LCD_Defines.h">
+      <Filter>lgLcdSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="lgLcdSDK\Src\EZ_LCD_Page.h">
+      <Filter>lgLcdSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Page.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDAnimatedBitmap.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDBase.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDBitmap.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDCollection.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDColorProgressBar.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDColorText.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDConnection.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDGfxBase.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDGfxColor.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDGfxMono.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDIcon.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDOutput.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDPage.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDPaginateText.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDPopup.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDProgressBar.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDScrollingText.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDSkinnedProgressBar.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDStreamingText.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\LCDUI\LCDText.cpp">
+      <Filter>lgLcdSDK\LCDUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\EZ_LCD.cpp">
+      <Filter>lgLcdSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="lgLcdSDK\Src\EZ_LCD_Page.cpp">
+      <Filter>lgLcdSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="DllMain.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Setting.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Page.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="lgLcdConnect.rc">
+      <Filter>Ressourcendateien</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\next.ico">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="resource\prev.ico">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="resource\circle.ico">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="resource\down.ico">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+  </ItemGroup>
+</Project>
