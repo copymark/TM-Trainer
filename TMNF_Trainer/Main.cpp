@@ -339,7 +339,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 			}
 			else if (pkbhs->vkCode == VK_NEXT)
 			{
-				g_pTMHack->MoveAxis(AXES::Z_AXIS, true);
+				g_pTMHack->MoveAxis(AXES::Z_AXIS, false);
 			}
 			else if (pkbhs->vkCode == VK_PRIOR)
 			{
