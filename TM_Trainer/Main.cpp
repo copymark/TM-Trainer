@@ -53,57 +53,6 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	return (int) msg.wParam;
 }
 
-typedef void (*PSETSTATUSLCD)(char *);
-PSETSTATUSLCD SetStatusLCD = 0;
-typedef void (*PADDSETTING)(HWND, int, char *);
-PADDSETTING AddSetting = 0;
-typedef void (*PINIT)(char*);
-PINIT Initialize = 0;
-typedef void (*PUNLOAD)(void);
-PUNLOAD Unload = 0;
-
-void G15Applet(void)
-{
-	static bool bAppletEnabled = false;
-	static HINSTANCE hDLL = 0;
-
-	if (!bAppletEnabled)
-	{
-		hDLL = LoadLibrary("lgLcdConnect.dll");
-		if (hDLL)
-		{
-			SetStatusLCD = (PSETSTATUSLCD)GetProcAddress(hDLL, "SetStatusLCD");
-			AddSetting = (PADDSETTING)GetProcAddress(hDLL, "AddSetting");
-			Initialize = (PINIT)GetProcAddress(hDLL, "Initialize");
-			Unload = (PUNLOAD)GetProcAddress(hDLL, "Unload");
-
-			Initialize("TM2 - Ultra Trainer");
-
-			AddSetting(g_hWindow, IDC_CHECK4, "No Wall Friction");
-			AddSetting(g_hWindow, IDC_CHECK8, "No Gras / Dirt");
-			AddSetting(g_hWindow, IDC_CHECK5, "No Free Wheeling");
-			AddSetting(g_hWindow, IDC_CHECK6, "Boost Hack");
-			AddSetting(g_hWindow, IDC_CHECK9, "No Platform Counter");
-			AddSetting(g_hWindow, IDC_CHECK3, "Time Freeze");
-			AddSetting(g_hWindow, IDC_CHECK2, "Checkpoint Hack");
-			AddSetting(g_hWindow, IDC_BUTTON3, "Stunt Points");
-			AddSetting(g_hWindow, IDC_BUTTON2, "Jump!");
-			AddSetting(g_hWindow, IDC_CHECK1, "Meter Hack");
-			AddSetting(g_hWindow, IDC_CHECK10, "No Restrictions");
-			AddSetting(g_hWindow, IDC_CHECK11, "Nadeo Ghosts Unlock");
-			AddSetting(g_hWindow, IDC_CHECK12, "Track unlock");
-		}
-		bAppletEnabled = true;
-	}
-	else
-	{
-		Unload();
-		if (hDLL)
-			FreeLibrary(hDLL);
-		bAppletEnabled = false;
-	}
-}
-
 void InitConfig(void)
 {
 	CConfig *pConfig = GetDllGlobalConfig();
@@ -137,11 +86,6 @@ void UpdateStatus(char *szText)
 	sprintf_s(szNewText, 255, "Status: %s", szText);
 
 	SetDlgItemText(g_hWindow, IDC_STATUS, szNewText);
-
-	if (!SetStatusLCD)
-		return;
-
-	SetStatusLCD(szText);
 }
 
 
@@ -274,12 +218,6 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
 						INT_PTR iSuccess = DialogBox(g_hInstance, MAKEINTRESOURCE(IDD_DIALOG2), hwndDlg, BoostOptionsDialogProc);
 						if (iSuccess == -1)
 							throw (CError("Failed to create DialogBox", ERRORPOS));
-						break;
-					}
-				case IDC_CHECK7: // G15 Applet
-					{
-						G15Applet();
-						EnableWindow(GetDlgItem(hwndDlg, IDC_CHECK7), FALSE);
 						break;
 					}
 				case IDC_CHECK8: // No Gras No Dirt Drive
