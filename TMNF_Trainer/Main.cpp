@@ -280,7 +280,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 			}
 			else if (pkbhs->vkCode == 0x46) // f
 			{
-				
+				g_pTMHack->CarMover();
 			}
 			else if (pkbhs->vkCode == VK_F1)
 			{
@@ -328,6 +328,30 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 			if (pkbhs->vkCode == LOBYTE(g_pTMHack->m_wBoostHotkey))
 			{
 				g_pTMHack->Boost(true);
+			}
+			else if (pkbhs->vkCode == VK_UP)
+			{
+				g_pTMHack->MoveAxis(AXES::X_AXIS, true);
+			}
+			else if (pkbhs->vkCode == VK_DOWN)
+			{
+				g_pTMHack->MoveAxis(AXES::X_AXIS, false);
+			}
+			else if (pkbhs->vkCode == VK_NEXT)
+			{
+				g_pTMHack->MoveAxis(AXES::Z_AXIS, true);
+			}
+			else if (pkbhs->vkCode == VK_PRIOR)
+			{
+				g_pTMHack->MoveAxis(AXES::Z_AXIS, false);
+			}
+			else if (pkbhs->vkCode == VK_LEFT)
+			{
+				g_pTMHack->MoveAxis(AXES::Y_AXIS, false);
+			}
+			else if (pkbhs->vkCode == VK_RIGHT)
+			{
+				g_pTMHack->MoveAxis(AXES::Y_AXIS, true);
 			}
 		}
 	}

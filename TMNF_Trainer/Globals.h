@@ -17,7 +17,7 @@ DEFINES
 #define TRAINERNAME "TMNF Ultra Trainer Copymark"
 #define GAMENAME "TmForever"
 #define GAMEVERSION "2.11.26"
-#define VERSION "Version: 1.1.6.9"
+#define VERSION "Version: 1.2.6.9"
 
 /*
 Globals

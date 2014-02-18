@@ -23,6 +23,13 @@ struct POSITION
 	float fPosY;
 };
 
+enum AXES
+{
+	X_AXIS,
+	Z_AXIS,
+	Y_AXIS
+};
+
 class cTrackManiaHack :
 	public cHack
 {
@@ -55,6 +62,12 @@ public:
 	void UnlockAllTracks(void);
 
 	/*
+	Car Mover
+	*/
+	void CarMover(void);
+	void MoveAxis(AXES axis, bool bDirection);
+
+	/*
 	Get and Set of special Values
 	*/
 	DWORD GetPositionAddress(void);
@@ -72,6 +85,7 @@ public:
 	float m_fBoostMulti;
 	float m_fBoostMultiHack;
 	bool m_bUseBoostMultiHack;
+	bool m_bCarMoverEnabled;
 
 	/*
 	TELEPORT 

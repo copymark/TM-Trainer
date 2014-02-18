@@ -10,6 +10,7 @@ cTrackManiaHack::cTrackManiaHack(void) : cHack(GAMENAME)
 	m_fBoostMulti = 5;
 	m_fBoostMultiHack = 5;
 	m_bUseBoostMultiHack = false;
+	m_bCarMoverEnabled = false;
 
 	POSITION NullPos;
 	NullPos.fPosX = 0; NullPos.fPosZ = 0; NullPos.fPosY = 0;
@@ -466,4 +467,59 @@ void cTrackManiaHack::CheckVersion(void)
 	sprintf_s(versionInfo, sizeof(versionInfo), "Supported Version: %s\nGame Version: %s\n-----------\nIf the version differs you may have luck. The Trainer does pattern scanning so it should find the new (or older) addresses as well", GAMEVERSION, gameversion);
 
 	MessageBox(NULL, versionInfo, "Version Check", NULL);
+}
+
+void cTrackManiaHack::CarMover(void)
+{
+	static CNop PosChangeFixes[4];
+	PosChangeFixes[0].Initialize(this, 0x5334EA, 28);
+	PosChangeFixes[1].Initialize(this, 0x5337BE, 30);
+	PosChangeFixes[2].Initialize(this, 0x5335C8, 30);
+	PosChangeFixes[3].Initialize(this, 0x53358F, 30);
+
+	if (!m_bCarMoverEnabled)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			PosChangeFixes[i].Enable();
+		}
+		m_bCarMoverEnabled = true;
+		SoundUpdate(SOUND_ON);
+	}
+	else
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			PosChangeFixes[i].Disable();
+		}
+		m_bCarMoverEnabled = false;
+		SoundUpdate(SOUND_OFF);
+	}
+}
+
+void cTrackManiaHack::MoveAxis(AXES axis, bool bDirection)
+{
+	if (!m_bCarMoverEnabled)
+	{
+		return;
+	}
+
+	DWORD dwPosAddress = GetPositionAddress() + 0x34;
+	switch (axis)
+	{
+	case AXES::X_AXIS:
+		dwPosAddress += 0x0;
+		break;
+	case AXES::Z_AXIS:
+		dwPosAddress += 0x4;
+		break;
+	case AXES::Y_AXIS:
+		dwPosAddress += 0x8;
+		break;
+	}
+
+	float fPos = 0;
+	ReadAddress(dwPosAddress, &fPos, sizeof(fPos));
+	fPos += bDirection ? 3.0f : -3.0f;
+	WriteAddress(dwPosAddress, &fPos, sizeof(fPos));
 }
