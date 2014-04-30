@@ -61,8 +61,8 @@ void CTM2Hack::DefineAddresses(void)
 	AddAddress("NoGrasDirt", 0x0064C412);
 	AddAddress("NoFreeDrive", 0x0064B2FF);
 	AddAddress("BoostHack", 0x0064B2A3);
-	AddAddress("CPFix1", 0x00A5D68B); // WRONG!
-	AddAddress("CPFix2", 0x00A5D9DE); // WRONG!
+	AddAddress("CPFix1", 0x00E9ED44);
+	AddAddress("CPFix2", 0x00E9F0FF);
 	AddAddress("SHHack", 0x0163FAA8);
 	AddAddress("Version", 0x0138E37C); // WRONG!
 	AddAddress("NoWallFriction", 0x0064C3C7);
@@ -177,11 +177,13 @@ void CTM2Hack::UnlockTracks(void)
 void CTM2Hack::CheckpointHack(void)
 {
 	static CCodeChange Fix1;
-	static CNop Fix2;
+	static CCodeChange Fix2;
 
-	BYTE FIX1[] = {0xE9, 0x51, 0x01, 0x00, 0x00, 0x90};
+	BYTE FIX1[] = {0xE9, 0x19, 0x01, 0x00, 0x00, 0x90};
 	Fix1.Initialize(this, GetAddress("CPFix1"), FIX1, sizeof(FIX1));
-	Fix2.Initialize(this, GetAddress("CPFix2"), 6);
+
+	BYTE FIX2[] = { 0xEB, 0x2E };
+	Fix2.Initialize(this, GetAddress("CPFix2"), FIX2, sizeof(FIX2));
 
 	if (!Fix1.IsEnabled())
 	{
