@@ -18,11 +18,14 @@ struct POSITION
 enum GROUND_ID {
 	UNDEFINED = 0,
 	GRAS = 2,
+	GRID = 4,
 	DIRT = 6,
 	BOOSTER = 7,
 	STREET_BORDER = 9,
 	STREET = 10,
-	FREEDRIVE = 29
+	TURBO1 = 26,
+	FREEDRIVE = 29,
+	TURBO2 = 30,
 };
 
 class CTM2Hack : public cHack

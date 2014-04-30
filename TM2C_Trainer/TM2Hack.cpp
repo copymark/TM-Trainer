@@ -57,21 +57,21 @@ void CTM2Hack::DefineAddresses(void)
 	AddAddress("NoGravity", 0x00FA12CC);
 	AddAddress("BaseP1", 0x18C1410);
 	AddAddress("MeterHack", 0x00EF98A7);
-	AddAddress("NoPlatCount", 0x00A57AAE);
+	AddAddress("NoPlatCount", 0x00A57AAE); // WRONG!
 	AddAddress("NoGrasDirt", 0x0064C412);
 	AddAddress("NoFreeDrive", 0x0064B2FF);
-	AddAddress("BoostHack", 0x008E632C);
-	AddAddress("CPFix1", 0x00A5D68B);
-	AddAddress("CPFix2", 0x00A5D9DE);
-	AddAddress("SHHack", 0x00FC8A60);
-	AddAddress("Version", 0x0138E37C);
+	AddAddress("BoostHack", 0x0064B2A3);
+	AddAddress("CPFix1", 0x00A5D68B); // WRONG!
+	AddAddress("CPFix2", 0x00A5D9DE); // WRONG!
+	AddAddress("SHHack", 0x00FC8A60); // WRONG!
+	AddAddress("Version", 0x0138E37C); // WRONG!
 	AddAddress("NoWallFriction", 0x0064C3C7);
-	AddAddress("NadeoUnlock", 0x00A7B060);
-	AddAddress("TUVis", 0x006EC770);
-	AddAddress("TUStat", 0x006EDD81);
-	AddAddress("TUReal", 0x006EDF05);
-	AddAddress("TimeFreezeChange", 0x00A565DA);
-	AddAddress("TimeFreezeFinishFix", 0x00A5D9AE);
+	AddAddress("NadeoUnlock", 0x00A7B060); // WRONG!
+	AddAddress("TUVis", 0x006EC770); // WRONG!
+	AddAddress("TUStat", 0x006EDD81); // WRONG!
+	AddAddress("TUReal", 0x006EDF05); // WRONG!
+	AddAddress("TimeFreezeChange", 0x00A565DA); // WRONG!
+	AddAddress("TimeFreezeFinishFix", 0x00A5D9AE); // WRONG!
 }
 
 void CTM2Hack::NoFreeDrive(void)
@@ -363,9 +363,9 @@ void CTM2Hack::Boost(bool bKeyDown)
 		{
 			SetBoostMulti(m_fBoostMultiHack);
 		}
-		DWORD dwOffsets[] = {0x4C, 0xC4, 0x7C, 0x38, 0x190};
+		DWORD dwOffsets[] = {0x4C, 0xC8, 0x7C, 0x38, 0x198};
 		DWORD dwAddressGroundNum = ReadPointer(GetAddress("BaseP1"), dwOffsets, sizeof(dwOffsets));
-		BYTE BoostValue = 0x7;	
+		BYTE BoostValue = GROUND_ID::BOOSTER;	
 		WriteAddress(dwAddressGroundNum, &BoostValue, sizeof(BoostValue));
 	}
 	else
@@ -381,13 +381,12 @@ void CTM2Hack::BoostHack(void)
 {
 	static CCodeInjection Fix1;
 
-	BYTE NewCode[] =	{	0x81, 0x64, 0x24, 0x20, 0xFF, 0xFF, 0xFF, 0x7F,		// and [esp+20],7FFFFFFF
-							0xD8, 0x4C, 0x24, 0x20,								// fmul dword ptr [esp+20]
-							0xD9, 0x9E, 0xA4, 0x03, 0x00, 0x00,					//  fstp dword ptr [esi+000003A4]
+	BYTE NewCode[] =	{	0x81, 0x64, 0x24, 0x1C, 0xFF, 0xFF, 0xFF, 0x7F,		// and [esp+1C],7FFFFFFF
+							0xF3, 0x0F, 0x59, 0x44, 0x24, 0x1C,					// mulss xmm0, [esp+1C]
 							0xE9, 0x00, 0x00, 0x00, 0x00						// jmp #back#
 						};
 
-	Fix1.Initialize(this, GetAddress("BoostHack"), NewCode, sizeof(NewCode), 10);
+	Fix1.Initialize(this, GetAddress("BoostHack"), NewCode, sizeof(NewCode), 6);
 
 	if (!m_bBoostEnabled)
 	{
@@ -411,7 +410,7 @@ void CTM2Hack::NoGrasDrive(void)
 		0x0F, 0x84, 0x0A, 0x00, 0x00, 0x00, // je #fix# -- wenn ja -> fix it
 		0x66, 0x3D, GROUND_ID::DIRT, 0x00,	// cmp ax, 0006 -- ist spieler auf dirt?
 		0x0F, 0x85, 0x04, 0x00, 0x00, 0x00,	// jne #orig# -- wenn nein dann nichts ‰ndern ansonsten eine zeile weiter
-		0x66, 0xB8, 0x10, 0x00,				// mov ax, 0010 -- FIX: 10 = straﬂe
+		0x66, 0xB8, GROUND_ID::STREET, 0x00,// mov ax, 0010 -- FIX: 10 = straﬂe
 		0x66, 0x89, 0x46, 0x78,				// mov [esi+78], ax -- fertigen wert in var schreiben
 		0xE9, 0x00, 0x00, 0x00, 0x00,		// jmp #back#
 	};
@@ -432,7 +431,7 @@ void CTM2Hack::NoGrasDrive(void)
 
 float CTM2Hack::GetBoostMulti(void)
 {
-	DWORD dwOffsetsSpeed[] = {0x4C, 0xC4, 0x80, 0x28, 0xC8};
+	DWORD dwOffsetsSpeed[] = {0x4C, 0xC8, 0x80, 0x28, 0xC8};
 	float fBoostMulti = 5;
 	DWORD dwBoostOptionAddress = ReadPointer(GetAddress("BaseP1"), dwOffsetsSpeed, sizeof(dwOffsetsSpeed));
 	ReadAddress(dwBoostOptionAddress, &fBoostMulti, sizeof(fBoostMulti));
@@ -440,13 +439,13 @@ float CTM2Hack::GetBoostMulti(void)
 }
 void CTM2Hack::SetBoostMulti(float fNewMulti)
 {
-	DWORD dwOffsetsSpeed[] = {0x4C, 0xC4, 0x80, 0x28, 0xC8};
+	DWORD dwOffsetsSpeed[] = {0x4C, 0xC8, 0x80, 0x28, 0xC8};
 	DWORD dwBoostOptionAddress = ReadPointer(GetAddress("BaseP1"), dwOffsetsSpeed, sizeof(dwOffsetsSpeed));
 	WriteAddress(dwBoostOptionAddress, &fNewMulti, sizeof(fNewMulti));
 }
 int CTM2Hack::GetBoostDuration(void)
 {
-	DWORD dwOffsetsSpeed[] = {0x4C, 0xC4, 0x80, 0x28, 0xCC};
+	DWORD dwOffsetsSpeed[] = {0x4C, 0xC8, 0x80, 0x28, 0xCC};
 	int iBoostDuration = 250;
 	DWORD dwBoostOptionAddress = ReadPointer(GetAddress("BaseP1"), dwOffsetsSpeed, sizeof(dwOffsetsSpeed));
 	ReadAddress(dwBoostOptionAddress, &iBoostDuration, sizeof(iBoostDuration));
@@ -454,7 +453,7 @@ int CTM2Hack::GetBoostDuration(void)
 }
 void CTM2Hack::SetBoostDuration(int iNewDuration)
 {
-	DWORD dwOffsetsSpeed[] = {0x4C, 0xC4, 0x80, 0x28, 0xCC};
+	DWORD dwOffsetsSpeed[] = {0x4C, 0xC8, 0x80, 0x28, 0xCC};
 	DWORD dwBoostOptionAddress = ReadPointer(GetAddress("BaseP1"), dwOffsetsSpeed, sizeof(dwOffsetsSpeed));
 	WriteAddress(dwBoostOptionAddress, &iNewDuration, sizeof(iNewDuration));
 }
