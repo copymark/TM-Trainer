@@ -15,6 +15,16 @@ struct POSITION
 	float fPosY;
 };
 
+enum GROUND_ID {
+	UNDEFINED = 0,
+	GRAS = 2,
+	DIRT = 6,
+	BOOSTER = 7,
+	STREET_BORDER = 9,
+	STREET = 10,
+	FREEDRIVE = 29
+};
+
 class CTM2Hack : public cHack
 {
 public:

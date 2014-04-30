@@ -151,12 +151,6 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
 						g_pTM2Hack->UnlockTracks();
 						break;
 					}
-				case IDC_CHECK12: // G15 Applet
-					{
-						G15Applet();
-						EnableWindow(GetDlgItem(hwndDlg, IDC_CHECK12), FALSE);
-						break;
-					}
 				case IDC_CHECK13: // Timefreeze Hack
 					{
 						BOOL bReadSuccess = FALSE;
@@ -201,9 +195,4 @@ void UpdateStatus(char *szText)
 	sprintf_s(szNewText, 255, "Status: %s", szText);
 
 	SetDlgItemText(g_hWindow, IDC_STATUS, szNewText);
-
-	if (!SetStatusLCD)
-		return;
-
-	SetStatusLCD(szText);
 }

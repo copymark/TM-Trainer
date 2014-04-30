@@ -17,7 +17,7 @@ DEFINES
 */
 #define TRAINERNAME "TM2 Ultra Trainer Copymark"
 #define GAMENAME "ManiaPlanet"
-#define VERSION "Version: 2.2.1.9"
+#define VERSION "Version: 3.2.1.9"
 #define GAMEVERSION "ManiaPlanet/3.3.0(Windows: rv: 2013-07-04_11_32"
 
 /*
@@ -43,10 +43,5 @@ Various
 */
 void InitConfig(void);
 
-/*
-G15 Applet
-*/
-typedef void (*PSETSTATUSLCD)(char *);
-extern PSETSTATUSLCD SetStatusLCD;
-void G15Applet(void);
+
 void add_log(const char * fmt, ...);

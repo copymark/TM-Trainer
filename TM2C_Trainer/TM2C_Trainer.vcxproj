@@ -85,7 +85,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BoostOptionsDialogProc.cpp" />
-    <ClCompile Include="G15Applet.cpp" />
     <ClCompile Include="LowLevelKeyHookProc.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainDialogProc.cpp" />

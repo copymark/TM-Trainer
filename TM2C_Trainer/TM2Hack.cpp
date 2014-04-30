@@ -31,7 +31,7 @@ void CTM2Hack::DefineAddresses(void)
 
 	m_vecAddresses.clear();
 
-	AddAddress("BaseP1", TMMODULESTART, TMMODULESIZE, (BYTE*)"\xA1\x00\x00\x00\x00\x83\x7C\x02\x00\x00\x74", "x????xxx?xx", 0x1, true);
+	/*AddAddress("BaseP1", TMMODULESTART, TMMODULESIZE, (BYTE*)"\xA1\x00\x00\x00\x00\x83\x7C\x02\x00\x00\x74", "x????xxx?xx", 0x1, true);
 	AddAddress("MeterHack", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x89\x86\x00\x00\x00\x00\x85\xFF\x74\x00\x8B\xCF", "xx????xxx?xx");
 	AddAddress("NoPlatCount", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x40\x3D\xE7\x03\x00\x00", "xxxxxx");
 	AddAddress("NoGrasDirt", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x66\x89\x4E\x00\x8B\x47\x00", "xxx?xx?", -0x4);
@@ -48,30 +48,30 @@ void CTM2Hack::DefineAddresses(void)
 	AddAddress("TUStat", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x0F\x84\x00\x00\x00\x00\x8B\x86\x00\x00\x00\x00\x3B\xC7\x0F\x84\x00\x00\x00\x00\x3B\xC1", "xx????xx????xxxx????xx");
 	AddAddress("TUReal", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x74\x26\xE8\x00\x00\x00\x00\x8B\xCE\x89\xAE", "x?x????xxxx");
 	AddAddress("TimeFreezeChange", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x89\x0A\x83\xB8\x00\x00\x00\x00\x00\x5E", "xxxx????xx");
-	AddAddress("TimeFreezeFinishFix", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x3B\xFE\x74\x34\x8B\x8D\x00\x00\x00\x00\x8B\x95\x00\x00\x00\x00\x8B\x83\x00\x00\x00\x00\x51", "xxxxxx????xx????xx????x", 0x2);
+	AddAddress("TimeFreezeFinishFix", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x3B\xFE\x74\x34\x8B\x8D\x00\x00\x00\x00\x8B\x95\x00\x00\x00\x00\x8B\x83\x00\x00\x00\x00\x51", "xxxxxx????xx????xx????x", 0x2);*/
 
 
 	/*
 	Standart Addressen definieren
 	*/
-	SetAddress("NoGravity", 0x00D79A2B);
-	SetAddress("BaseP1", 0x13890A8);
-	SetAddress("MeterHack", 0x00A93953);
-	SetAddress("NoPlatCount", 0x00A57AAE);
-	SetAddress("NoGrasDirt", 0x0008E65F6);
-	SetAddress("NoFreeDrive", 0x008E6383);
-	SetAddress("BoostHack", 0x008E632C);
-	SetAddress("CPFix1", 0x00A5D68B);
-	SetAddress("CPFix2", 0x00A5D9DE);
-	SetAddress("SHHack", 0x00FC8A60);
-	SetAddress("Version", 0x0138E37C);
-	SetAddress("NoWallFriction", 0x008E65C0);
-	SetAddress("NadeoUnlock", 0x00A7B060);
-	SetAddress("TUVis", 0x006EC770);
-	SetAddress("TUStat", 0x006EDD81);
-	SetAddress("TUReal", 0x006EDF05);
-	SetAddress("TimeFreezeChange", 0x00A565DA);
-	SetAddress("TimeFreezeFinishFix", 0x00A5D9AE);
+	AddAddress("NoGravity", 0x00FA12CC);
+	AddAddress("BaseP1", 0x18C1410);
+	AddAddress("MeterHack", 0x00EF98A7);
+	AddAddress("NoPlatCount", 0x00A57AAE);
+	AddAddress("NoGrasDirt", 0x0064C412);
+	AddAddress("NoFreeDrive", 0x0064B2FF);
+	AddAddress("BoostHack", 0x008E632C);
+	AddAddress("CPFix1", 0x00A5D68B);
+	AddAddress("CPFix2", 0x00A5D9DE);
+	AddAddress("SHHack", 0x00FC8A60);
+	AddAddress("Version", 0x0138E37C);
+	AddAddress("NoWallFriction", 0x0064C3C7);
+	AddAddress("NadeoUnlock", 0x00A7B060);
+	AddAddress("TUVis", 0x006EC770);
+	AddAddress("TUStat", 0x006EDD81);
+	AddAddress("TUReal", 0x006EDF05);
+	AddAddress("TimeFreezeChange", 0x00A565DA);
+	AddAddress("TimeFreezeFinishFix", 0x00A5D9AE);
 }
 
 void CTM2Hack::NoFreeDrive(void)
@@ -238,7 +238,7 @@ void CTM2Hack::SpeedHandlingHack(double newValue)
 DWORD CTM2Hack::GetPositionAddress(void)
 {
 	DWORD dwPos = 0;
-	DWORD dwOffsets[] = {0x4C, 0xC4, 0x80, 0x1C, 0x28};
+	DWORD dwOffsets[] = {0x4C, 0xC8, 0x80, 0x1C, 0x28};
 	dwPos = ReadPointer(GetAddress("BaseP1"), dwOffsets, sizeof(dwOffsets));
 	return dwPos;
 }
@@ -314,7 +314,7 @@ void CTM2Hack::MeterHack(void)
 	static CCodeInjection Fix;
 
 	BYTE newcode[] = {
-		0xC7, 0x86, 0x0C, 0x03, 0x00, 0x00, 0xFF, 0xE0, 0xF5, 0x05, //mov [esi+30C], 05F5E0FF
+		0xC7, 0x83, 0x14, 0x03, 0x00, 0x00, 0xFF, 0xE0, 0xF5, 0x05, //mov [ebx+314], 05F5E0FF
 		0xE9, 0x00, 0x00, 0x00, 0x00 // jmp (back)
 	};
 
@@ -336,7 +336,7 @@ void CTM2Hack::MeterHack(void)
 void CTM2Hack::NoGravity(bool playSound)
 {
 	static CNop Fix;
-	Fix.Initialize(this, GetAddress("NoGravity"), 4);
+	Fix.Initialize(this, GetAddress("NoGravity"), 5);
 
 	if (!Fix.IsEnabled())
 	{
@@ -406,13 +406,13 @@ void CTM2Hack::BoostHack(void)
 void CTM2Hack::NoGrasDrive(void)
 {
 	BYTE INJECT[] = {
-		0x66, 0x8B, 0x4F, 0x0C,				// mov cx, [edi+0c] -- eigentlicher wert in cx
-		0x66, 0x81, 0xF9, 0x02, 0x00,		// cmp cx, 0002 -- ist spieler auf gras?
-		0x0F, 0x84, 0x0B, 0x00, 0x00, 0x00, // je #fix# -- wenn ja -> fix it
-		0x66, 0x81, 0xF9, 0x06, 0x00,		// cmp cx, 0006 -- ist spieler auf dirt?
+		0x66, 0x8B, 0x47, 0x0C,				// mov ax, [edi+0c] -- eigentlicher wert in cx
+		0x66, 0x3D, GROUND_ID::GRAS, 0x00,	// cmp ax, 0002 -- ist spieler auf gras?
+		0x0F, 0x84, 0x0A, 0x00, 0x00, 0x00, // je #fix# -- wenn ja -> fix it
+		0x66, 0x3D, GROUND_ID::DIRT, 0x00,	// cmp ax, 0006 -- ist spieler auf dirt?
 		0x0F, 0x85, 0x04, 0x00, 0x00, 0x00,	// jne #orig# -- wenn nein dann nichts ‰ndern ansonsten eine zeile weiter
-		0x66, 0xB9, 0x10, 0x00,				// mov cx, 0010 -- FIX: 10 = straﬂe
-		0x66, 0x89, 0x4E, 0x78,				// mov [esi+78], cx -- fertigen wert in var schreiben
+		0x66, 0xB8, 0x10, 0x00,				// mov ax, 0010 -- FIX: 10 = straﬂe
+		0x66, 0x89, 0x46, 0x78,				// mov [esi+78], ax -- fertigen wert in var schreiben
 		0xE9, 0x00, 0x00, 0x00, 0x00,		// jmp #back#
 	};
 
