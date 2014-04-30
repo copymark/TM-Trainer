@@ -44,7 +44,7 @@ public:
 	void NoPlatformCounterIncrease(void);
 	void NoFreeDrive(void);
 	void NoGravity(bool playSound);
-	void SpeedHandlingHack(double newValue);
+	void SpeedHandlingHack(float newValue);
 	void NoWallFriction(void);
 	void UnlockNadeos(void);
 	void UnlockTracks(void);

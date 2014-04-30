@@ -63,7 +63,7 @@ void CTM2Hack::DefineAddresses(void)
 	AddAddress("BoostHack", 0x0064B2A3);
 	AddAddress("CPFix1", 0x00A5D68B); // WRONG!
 	AddAddress("CPFix2", 0x00A5D9DE); // WRONG!
-	AddAddress("SHHack", 0x00FC8A60); // WRONG!
+	AddAddress("SHHack", 0x0163FAA8);
 	AddAddress("Version", 0x0138E37C); // WRONG!
 	AddAddress("NoWallFriction", 0x0064C3C7);
 	AddAddress("NadeoUnlock", 0x00A7B060); // WRONG!
@@ -214,25 +214,26 @@ void CTM2Hack::NoPlatformCounterIncrease(void)
 	}
 }
 
-void CTM2Hack::SpeedHandlingHack(double newValue)
+void CTM2Hack::SpeedHandlingHack(float newValue)
 {
-	unsigned __int64 standartValue = 0x400CCCCCC0000000; // 3.599999904632568;
+	unsigned __int32 standartValue = 0x40666666; // 3.599999905;
 	DWORD dwOld;
-	VirtualProtectEx(this->m_hGameHandle, (LPVOID)GetAddress("SHHack"), 8, PAGE_EXECUTE_READWRITE, &dwOld);
+	DWORD shhack_address = GetAddress("SHHack");
+	VirtualProtectEx(this->m_hGameHandle, (LPVOID)shhack_address, 4, PAGE_EXECUTE_READWRITE, &dwOld);
 	static bool bEnabled = false;
 	if (!bEnabled)
 	{
-		WriteAddress(GetAddress("SHHack"), &newValue, sizeof(newValue));
+		WriteAddress(shhack_address, &newValue, sizeof(newValue));
 		SoundUpdate(SOUND_ON);
 	}
 	else
 	{
-		WriteAddress(GetAddress("SHHack"), &standartValue, sizeof(standartValue));
+		WriteAddress(shhack_address, &standartValue, sizeof(standartValue));
 		SoundUpdate(SOUND_OFF);
 	}
 	bEnabled = !bEnabled;
 	DWORD temp;
-	VirtualProtectEx(this->m_hGameHandle, (LPVOID)GetAddress("SHHack"), 8, dwOld, &temp);
+	VirtualProtectEx(this->m_hGameHandle, (LPVOID)shhack_address, 4, dwOld, &temp);
 }
 
 DWORD CTM2Hack::GetPositionAddress(void)

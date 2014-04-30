@@ -123,7 +123,7 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
 						GetDlgItemText(hwndDlg, IDC_EDIT4, szInput, sizeof(szInput));
 						float newValue = 0;
 						sscanf_s(szInput, "%f", &newValue);
-						g_pTM2Hack->SpeedHandlingHack((double)newValue);
+						g_pTM2Hack->SpeedHandlingHack(newValue);
 						break;
 					}
 				case IDC_CHECK8: // No Gravity
