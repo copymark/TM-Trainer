@@ -70,8 +70,8 @@ void CTM2Hack::DefineAddresses(void)
 	AddAddress("TUVis", 0x006EC770); // WRONG!
 	AddAddress("TUStat", 0x006EDD81); // WRONG!
 	AddAddress("TUReal", 0x006EDF05); // WRONG!
-	AddAddress("TimeFreezeChange", 0x00A565DA); // WRONG!
-	AddAddress("TimeFreezeFinishFix", 0x00A5D9AE); // WRONG!
+	AddAddress("TimeFreezeChange", 0x00E989EC);
+	AddAddress("TimeFreezeFinishFix", 0x00E9F0FF);
 }
 
 void CTM2Hack::NoFreeDrive(void)
@@ -95,10 +95,10 @@ void CTM2Hack::TimeFreeze(int iTimeSec, int iTimeCentiSec)
 {
 	static CCodeInjection TimeChangeFix;
 	BYTE bInjectCode[] = {
-		0x81, 0xF9, 0xFF, 0xFF, 0xFF, 0xFF,			// cmp ecx, FFFFFFFF
+		0x81, 0xFA, 0xFF, 0xFF, 0xFF, 0xFF,			// cmp edx, FFFFFFFF
 		0x73, 0x02,									// jae #overjump next line#
-		0x89, 0x0A,									// mov [edx], ecx (original code)
-		0x83, 0xB8, 0x10, 0x02, 0x00, 0x00, 0x00,	// cmp dword ptr [eax+000000210],00 (original code)
+		0x89, 0x10,									// mov [eax], edx (original code)
+		0x8B, 0x86, 0x20, 0x02, 0x00, 0x00,			// mov eax, [esi+220] (original code)
 		0xE9, 0xC9, 0x65, 0x8D, 0xFD				// jmp #back#
 	};
 	TimeChangeFix.Initialize(this, GetAddress("TimeFreezeChange"), bInjectCode, sizeof(bInjectCode), 9);
