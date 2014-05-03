@@ -17,8 +17,8 @@ DEFINES
 */
 #define TRAINERNAME "TM2 Ultra Trainer Copymark"
 #define GAMENAME "ManiaPlanet"
-#define VERSION "Version: 3.2.1.9"
-#define GAMEVERSION "ManiaPlanet/3.3.0(Windows: rv: 2013-07-04_11_32"
+#define VERSION "Version: 3.0.0.9"
+#define GAMEVERSION "Date=2014-04-29_23_00 Svn=56290 GameVersion=3.3.0"
 
 /*
 Globals

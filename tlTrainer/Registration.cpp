@@ -229,7 +229,7 @@ bool Registration::CheckRegistration()
 		char szInfo[128];
 		sprintf_s(szInfo, sizeof(szInfo), "Your Data:\nName:\t\t%s\nSerial:\t\t%s\nHwID:\t\t%d\n--------------------\n", szName, szKey, iHWIDLocal);
 		char szFullText[256];
-		char *email = "mark@engerisser.de";
+		char *email = "copymarkproductions@gmail.com";
 
 		if (bChecks[0] == true && bChecks[1] == false)
 		{
