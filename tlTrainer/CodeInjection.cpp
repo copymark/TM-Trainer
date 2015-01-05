@@ -2,31 +2,27 @@
 
 CCodeInjection::CCodeInjection(void)
 {
-	this->m_bInjected = false;
-	this->m_bInitialized = false;
 }
 
 CCodeInjection::CCodeInjection(cHack *pHack, UINT_PTR uiAddress, BYTE *pInject, SIZE_T nInjectSize, SIZE_T nOrigJmpSize)
 {
-	this->m_bInjected = false;
-	this->m_bInitialized = false;
 	this->Initialize(pHack, uiAddress, pInject, nInjectSize, nOrigJmpSize);
 }
 
 
 CCodeInjection::~CCodeInjection(void)
 {
-	delete this->m_pbInject;
-	delete this->m_pbOriginal;
+	delete[] this->m_pbInject;
+	delete[] this->m_pbOriginal;
 }
 
 void CCodeInjection::Initialize(cHack *pHack, UINT_PTR uiAddress, BYTE *pInject, SIZE_T nInjectSize, SIZE_T nOrigJmpSize)
 {
 	// Würde falschen Originalwert auslesen
-	if (this->m_bInjected)
+	if (this->IsEnabled())
 		return;
 
-	this->m_pHack = pHack;
+	this->SetHack(pHack);
 	this->m_uiAddress = uiAddress;
 	this->m_nInjectSize = nInjectSize;
 	this->m_nOrigJmpSize = nOrigJmpSize;
@@ -36,19 +32,16 @@ void CCodeInjection::Initialize(cHack *pHack, UINT_PTR uiAddress, BYTE *pInject,
 
 	// Speicher allozieren und dann Original auslesen
 	this->m_pbOriginal = new BYTE[this->m_nOrigJmpSize];
-	pHack->ReadAddress(this->m_uiAddress, this->m_pbOriginal, this->m_nOrigJmpSize);
+	this->GetHack()->ReadAddress(this->m_uiAddress, this->m_pbOriginal, this->m_nOrigJmpSize);
 
 	// Initialized
-	this->m_bInitialized = true;
+	this->setIntializedStatus(true);
 }
 
-void CCodeInjection::Enable(void)
+void CCodeInjection::EnableFeature(void)
 {
-	if (!this->m_bInitialized)
-		return;
-
 	// Platz allozieren
-	this->m_uiBase = (UINT_PTR)VirtualAllocEx(this->m_pHack->m_hGameHandle, NULL, this->m_nInjectSize, MEM_RESERVE|MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+	this->m_uiBase = (UINT_PTR)VirtualAllocEx(this->GetHack()->m_hGameHandle, NULL, this->m_nInjectSize, MEM_RESERVE|MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 
 	// Jump zum neuen Code erstellen
 	BYTE *pbJump = new BYTE[this->m_nOrigJmpSize];
@@ -62,48 +55,22 @@ void CCodeInjection::Enable(void)
 	this->GetJmpOpCode(this->m_pbInject + this->m_nInjectSize - 5, this->m_uiBase + this->m_nInjectSize - 5, this->m_uiAddress + this->m_nOrigJmpSize);
 
 	// Neuen Code in Programm schreiben
-	this->m_pHack->WriteAddress(this->m_uiBase, this->m_pbInject, this->m_nInjectSize);
-	this->m_pHack->WriteAddress(this->m_uiAddress, pbJump, this->m_nOrigJmpSize);
-
-	// Status setzen
-	this->m_bInjected = true;
+	this->GetHack()->WriteAddress(this->m_uiBase, this->m_pbInject, this->m_nInjectSize);
+	this->GetHack()->WriteAddress(this->m_uiAddress, pbJump, this->m_nOrigJmpSize);
 }
 
-void CCodeInjection::Disable(void)
+void CCodeInjection::DisableFeature(void)
 {
-	// Check
-	if (!this->m_bInitialized)
-		return;
-
 	// Original wiederherstellen
-	this->m_pHack->WriteAddress(this->m_uiAddress, this->m_pbOriginal, this->m_nOrigJmpSize);
+	this->GetHack()->WriteAddress(this->m_uiAddress, this->m_pbOriginal, this->m_nOrigJmpSize);
 
 	// Inject löschen
-	VirtualFreeEx(this->m_pHack->m_hGameHandle, (LPVOID)this->m_uiBase, NULL, MEM_RELEASE);
+	VirtualFreeEx(this->GetHack()->m_hGameHandle, (LPVOID)this->m_uiBase, NULL, MEM_RELEASE);
 
 	// Reset
 	this->m_uiBase = 0;
-
-	// Status setzen
-	this->m_bInjected = false;
 }
 
-void CCodeInjection::Switch(void)
-{
-	if (this->m_bInjected == true)
-	{
-		this->Disable();
-	}
-	else
-	{
-		this->Enable();
-	}
-}
-
-bool CCodeInjection::IsInjected(void)
-{
-	return this->m_bInjected;
-}
 
 UINT_PTR CCodeInjection::GetBaseAddress(void)
 {

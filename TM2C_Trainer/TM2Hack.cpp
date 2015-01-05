@@ -106,7 +106,7 @@ void CTM2Hack::TimeFreeze(int iTimeSec, int iTimeCentiSec)
 	BYTE JMPSHORT[] = {0xEB};
 	FinishFix.Initialize(this, GetAddress("TimeFreezeFinishFix"), JMPSHORT, sizeof(JMPSHORT));
 
-	if (!TimeChangeFix.IsInjected())
+	if (!TimeChangeFix.IsEnabled())
 	{
 		TimeChangeFix.Enable();
 		FinishFix.Enable();
@@ -324,7 +324,7 @@ void CTM2Hack::MeterHack(void)
 	Fix.Initialize(this, GetAddress("MeterHack"), newcode, sizeof(newcode), 6);
 						
 
-	if (!Fix.IsInjected())
+	if (!Fix.IsEnabled())
 	{
 		Fix.Enable();
 		SoundUpdate(SOUND_ON);
@@ -420,7 +420,7 @@ void CTM2Hack::NoGrasDrive(void)
 
 	static CCodeInjection NoGrasDirtInject;
 	NoGrasDirtInject.Initialize(this, GetAddress("NoGrasDirt"), INJECT, sizeof(INJECT), 8);
-	if (!NoGrasDirtInject.IsInjected())
+	if (!NoGrasDirtInject.IsEnabled())
 	{
 		NoGrasDirtInject.Enable();
 		SoundUpdate(SOUND_ON);

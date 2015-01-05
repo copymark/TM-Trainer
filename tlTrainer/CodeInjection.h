@@ -2,6 +2,7 @@
 
 #include "DllGlobals.h"
 #include "cHack.h"
+#include "Helper.h"
 
 /*
 CCodeInjection
@@ -9,7 +10,7 @@ CCodeInjection
 Erstellt an einer Adresse einen Jmp zu einem neu allozierten Bereich mit neuem Code und springt 
 anschließend zurück.
 */
-class _declspec(dllexport) CCodeInjection
+class _declspec(dllexport) CCodeInjection : public CHelper
 {
 public:
 	/*
@@ -41,22 +42,7 @@ public:
 	*/
 	void Initialize(cHack *pHack, UINT_PTR uiAddress, BYTE *pInject, SIZE_T nInjectSize, SIZE_T nOrigJmpSize);
 
-	/*
-	Aktiviert den Inject
-	# Nur möglich wenn davor Initialize aufgerufen wurde
-	*/
-	void Enable(void);
 
-	/*
-	Deaktiviert den Inject
-	# Nur möglich wenn davor Initialize aufgerufen wurde
-	*/
-	void Disable(void);
-
-	/*
-	Ruft je nach Status (Injected oder Nicht-Injected) Enable() oder Disable() auf.
-	*/
-	void Switch(void);
 
 	/*
 	Gibt an ob im Moment der Inject aktiviert oder deaktiviert ist
@@ -71,14 +57,17 @@ public:
 	void UpdateCode(BYTE *pbUpdatedCode);
 
 private:
-	// True wenn Initialisiert
-	bool m_bInitialized;
+	/*
+	Aktiviert den Inject
+	# Nur möglich wenn davor Initialize aufgerufen wurde
+	*/
+	virtual void EnableFeature(void);
 
-	// Aktueller Status
-	bool m_bInjected;
-
-	// Um Write/Read Process Memory zu nutzen
-	cHack *m_pHack;
+	/*
+	Deaktiviert den Inject
+	# Nur möglich wenn davor Initialize aufgerufen wurde
+	*/
+	virtual void DisableFeature(void);
 
 	// Original zum wiederherstellen
 	BYTE *m_pbOriginal;

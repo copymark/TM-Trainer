@@ -2,8 +2,9 @@
 
 #include "DllGlobals.h"
 #include "cHack.h"
+#include "Helper.h"
 
-class _declspec(dllexport) CCodeChange
+class _declspec(dllexport) CCodeChange : public CHelper
 {
 public:
 	CCodeChange(void);
@@ -13,21 +14,6 @@ public:
 	Setzt die ganzen Werte
 	*/
 	void Initialize(cHack *pHack, UINT_PTR uiAddress, BYTE *pbNewCode, SIZE_T nSize);
-
-	/*
-	Überschreibt das Original
-	*/
-	void Enable(void);
-
-	/*
-	Stellt Original wieder her
-	*/
-	void Disable(void);
-
-	/*
-	Gibt true zurück wenn aktiviert
-	*/
-	bool IsEnabled(void);
 
 	/*
 	Konvertiert von Big Endian in Little Endian oder umgekehrt
@@ -40,6 +26,16 @@ public:
 	void SetNewCode(BYTE *pbNewCode);
 
 private:
+	/*
+	Überschreibt das Original
+	*/
+	virtual void EnableFeature(void);
+
+	/*
+	Stellt Original wieder her
+	*/
+	virtual void DisableFeature(void);
+
 	/*
 	Addresse an die geschrieben werden soll
 	*/
@@ -59,20 +55,5 @@ private:
 	Neuer Code der an die Addresse geschrieben wird
 	*/
 	BYTE *m_pbNewCode;
-
-	/*
-	Pointer zum Hackobjekt um Schreib/Lese Operationen durchuführen
-	*/
-	cHack *m_pHack;
-
-	/*
-	Wenn gerade aktiviert
-	*/
-	bool m_bActivated;
-
-	/*
-	Wenn schon initialisiert
-	*/
-	bool m_bInitialized;
 };
 

@@ -87,6 +87,7 @@
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="Error.cpp" />
+    <ClCompile Include="Helper.cpp" />
     <ClCompile Include="InjectDll.cpp" />
     <ClCompile Include="CodeChange.cpp" />
     <ClCompile Include="Nop.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="DllGlobals.h" />
+    <ClInclude Include="Helper.h" />
     <ClInclude Include="InjectDll.h" />
     <ClInclude Include="CodeChange.h" />
     <ClInclude Include="Nop.h" />

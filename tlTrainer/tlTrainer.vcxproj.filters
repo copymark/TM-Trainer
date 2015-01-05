@@ -13,21 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headerdateien\ModificationHelpers">
+      <UniqueIdentifier>{961a73c1-11ff-480d-8ede-a15bd1e85c54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\ModificationHelpers">
+      <UniqueIdentifier>{e5375e9a-24fe-43a3-9f89-25ea7c7f3fe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Registration">
+      <UniqueIdentifier>{efe7fb70-9cc4-4f9c-8550-d27a3db5611b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Registration">
+      <UniqueIdentifier>{af28e204-e83c-458d-88b6-3410a42c0b9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Config">
+      <UniqueIdentifier>{b94a3c8e-dfc9-4b49-a376-cc74a4cb0a9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Config">
+      <UniqueIdentifier>{bb4e5f85-3be2-4056-b448-930f337279cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DllMain.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Error.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Registration.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Option.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Config.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="InjectDll.cpp">
@@ -37,20 +46,29 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="CodeInjection.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\ModificationHelpers</Filter>
     </ClCompile>
     <ClCompile Include="CodeChange.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\ModificationHelpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>Quelldateien\ModificationHelpers</Filter>
     </ClCompile>
     <ClCompile Include="Nop.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\ModificationHelpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Registration.cpp">
+      <Filter>Quelldateien\Registration</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Quelldateien\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="Option.cpp">
+      <Filter>Quelldateien\Config</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Error.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Registration.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -59,29 +77,35 @@
     <ClInclude Include="DllGlobals.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Option.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="InjectDll.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="cHack.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="CodeInjection.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="CodeChange.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\ModificationHelpers</Filter>
+    </ClInclude>
+    <ClInclude Include="CodeInjection.h">
+      <Filter>Headerdateien\ModificationHelpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper.h">
+      <Filter>Headerdateien\ModificationHelpers</Filter>
     </ClInclude>
     <ClInclude Include="Nop.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\ModificationHelpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Registration.h">
+      <Filter>Headerdateien\Registration</Filter>
     </ClInclude>
     <ClInclude Include="XorStr.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Registration</Filter>
+    </ClInclude>
+    <ClInclude Include="Option.h">
+      <Filter>Headerdateien\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Headerdateien\Config</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

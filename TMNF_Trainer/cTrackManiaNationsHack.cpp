@@ -318,7 +318,7 @@ void cTrackManiaHack::NoGrasDrive(void)
 
 	static CCodeInjection NoGrasDirtInject;
 	NoGrasDirtInject.Initialize(this, GetAddress("NoGrasDirt"), INJECT, sizeof(INJECT), 7);
-	if (!NoGrasDirtInject.IsInjected())
+	if (!NoGrasDirtInject.IsEnabled())
 	{
 		NoGrasDirtInject.Enable();
 		SoundUpdate(SOUND_ON);
@@ -405,7 +405,7 @@ void cTrackManiaHack::TimeFreeze(int iTimeSec, int iTimeCentiSec)
 	TFreezeInject.Initialize(this, GetAddress("TimeNormalChange"), bInjectCode, sizeof(bInjectCode), 6);
 	TFreezeCPFix.Initialize(this, GetAddress("TimeCheckpointChange"), 6);
 
-	if (!TFreezeInject.IsInjected())
+	if (!TFreezeInject.IsEnabled())
 	{
 		TFreezeCPFix.Enable();
 		TFreezeInject.Enable();

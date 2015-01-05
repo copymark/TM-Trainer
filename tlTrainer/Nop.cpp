@@ -20,15 +20,17 @@ void CNop::Initialize(cHack *pHack, UINT_PTR uiAddress, SIZE_T nSize)
 
 	this->m_CodeChange.Initialize(pHack, uiAddress, pNops, nSize);
 
-	delete pNops;
+	delete[] pNops;
+
+	this->setIntializedStatus(true);
 }
 
-void CNop::Enable(void)
+void CNop::EnableFeature(void)
 {
 	this->m_CodeChange.Enable();
 }
 
-void CNop::Disable(void)
+void CNop::DisableFeature(void)
 {
 	this->m_CodeChange.Disable();
 }

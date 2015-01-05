@@ -71,7 +71,7 @@ void add_log(const char * fmt, ...)
 		va_end(va_alist);
 
 		FILE *fp;
-		fopen_s(&fp, "C:\\TM2_TRAINER_LOG.txt", "a");
+		fopen_s(&fp, "C:\\Tm-Trainer Logs\\TM2_TRAINER_LOG.txt", "a");
 		if (fp)
 		{
 			fprintf_s(fp, "%s\n", logbuf);
