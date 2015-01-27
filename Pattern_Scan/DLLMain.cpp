@@ -52,24 +52,17 @@ extern "C" __declspec(dllexport) void findPattern(SIGADDRESS_DLL pSig)
 		}
 	}
 
-	if (pSig.dwAddress == NULL)
+	if (pSig.dwAddress == NULL && pSig.bGetOpcode)
 	{
-		return;
+		pSig.dwAddress = *(PDWORD)pSig.dwAddress;
 	}
-	else
-	{
-		if (pSig.bGetOpcode)
-		{
-			pSig.dwAddress = *(PDWORD)pSig.dwAddress;
-		}
 
-		DWORD nBr = 0;
-		HANDLE hPipe = CreateFile("\\\\.\\pipe\\sigscanpipe",  GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	DWORD nBr = 0;
+	HANDLE hPipe = CreateFile("\\\\.\\pipe\\sigscanpipe", GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
-		WriteFile(hPipe, &pSig, sizeof(pSig), &nBr, NULL);
+	WriteFile(hPipe, &pSig, sizeof(pSig), &nBr, NULL);
 
-		CloseHandle(hPipe);
-	}
+	CloseHandle(hPipe);
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved )

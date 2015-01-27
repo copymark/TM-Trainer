@@ -1,9 +1,25 @@
-#include "Globals.h"
+﻿#include "Globals.h"
 #include "TM2Hack.h"
 #include "Registration.h"
 
 HINSTANCE g_hInstance = 0;
 HWND g_hWindow = 0;
+
+CConsole *g_pConsole = nullptr;
+
+void InitConsole()
+{
+	g_pConsole = new CConsole("Trackmania 2 Ultra Trainer");
+
+	g_pConsole->SetConsoleColor(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+	g_pConsole->print("##############################################################################\n");
+	g_pConsole->print("##  ______      ___     __  ______            ______         _              ##\n");
+	g_pConsole->print("## /_  __/_ _  |_  |___/ / / / / /________ _ /_  __/______ _(_)__  ___ ____ ##\n");
+	g_pConsole->print("##  / / /  ' \\/ __/___/ /_/ / / __/ __/ _ `/  / / / __/ _ `/ / _ \\/ -_) __/ ##\n");
+	g_pConsole->print("## /_/ /_/_/_/____/   \\____/_/\\__/_/  \\_,_/  /_/ /_/  \\_,_/_/_//_/\\__/_/    ##\n");
+	g_pConsole->print("##                                                                          ##\n");
+	g_pConsole->print("##############################################################################\n");
+}
 
 /*
 MAIN - EINSTIEGSPUNKT
@@ -28,13 +44,15 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	if (!Registration::IsRegistered())
 		return FALSE;
 
+	InitConsole();
+
 	CSplash splash;
 	splash.SetBitmap((HBITMAP)LoadImage(g_hInstance, MAKEINTRESOURCE(IDB_BITMAP1), IMAGE_BITMAP, NULL, NULL, NULL));
 	splash.SetTransparentColor(RGB(255,255,255));
 	splash.ShowSplash();
 
 	g_hLowLevelKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, GetModuleHandle(NULL), NULL);
-
+	
 	Sleep(2000);
 	splash.CloseSplash();
 	

@@ -45,9 +45,9 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
 				SetDlgItemText(hwndDlg, IDC_EDIT5, "0");
 				SetDlgItemText(hwndDlg, IDC_EDIT6, "0");
 
-				InitConfig();
+				g_pTM2Hack = new CTM2Hack(g_pConsole);
 
-				g_pTM2Hack = new CTM2Hack();
+				InitConfig();
 
 				g_pTM2Hack->SendStatusExtern = &UpdateStatus;
 				g_pTM2Hack->ProgressUpdateExtern = &ProgressBarControl;

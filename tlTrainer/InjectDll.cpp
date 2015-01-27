@@ -54,7 +54,7 @@ void InjectDLL::SigAddressToDllVersion(SIGADDRESS_DLL *pSigDll, SIGADDRESS *pSig
 	}
 }
 
-bool InjectDLL::RemoteLoadLoader(HANDLE hProcessHandle, char *pszDllName, char *pszFunctionName, SIGADDRESS *Address, HANDLE *hPipe)
+InjectDLL::RLLStatus InjectDLL::RemoteLoadLoader(HANDLE hProcessHandle, char *pszDllName, char *pszFunctionName, SIGADDRESS *Address, HANDLE *hPipe)
 {
 	/*
 	Absoluten Pfad der DLL holen
@@ -62,7 +62,7 @@ bool InjectDLL::RemoteLoadLoader(HANDLE hProcessHandle, char *pszDllName, char *
 	char szDllPath[MAX_PATH];
 	if (!GetDllPath(szDllPath, pszDllName))
 	{
-		return false;
+		return RLL_OTHER_ERROR;
 	}
 
 	/*
@@ -120,11 +120,18 @@ bool InjectDLL::RemoteLoadLoader(HANDLE hProcessHandle, char *pszDllName, char *
 
 	SIGADDRESS_DLL buffer;
 	DWORD numBytesRead = 0;
+	bool bNoAddressFound = false;
 	if (ReadFile(*hPipe, &buffer, sizeof(SIGADDRESS_DLL), &numBytesRead, NULL))
 	{
 		//add_log("Name: %s | dwAddressBuffer: %X | dwAddressOld: %X", buffer.szName, buffer.dwAddress, Address->dwAddress);
 		if (buffer.dwAddress != NULL)
+		{
 			Address->dwAddress = buffer.dwAddress;
+		}
+		else
+		{
+			bNoAddressFound = true;
+		}
 	}
 
 	DisconnectNamedPipe(*hPipe);
@@ -136,7 +143,8 @@ bool InjectDLL::RemoteLoadLoader(HANDLE hProcessHandle, char *pszDllName, char *
 
 	VirtualFreeEx(hProcessHandle, lpParamStart, NULL, MEM_RELEASE);
 
-	return true;
+	if (bNoAddressFound) return RLL_NO_ADDRESS_FOUND;
+	return RLL_SUCCESS;
 }
 
 bool InjectDLL::RemoteLoadLib(HANDLE hProcessHandle, char *pszDllName)

@@ -2,6 +2,7 @@
 #include "DllGlobals.h"
 #include "InjectDll.h"
 #include "Config.h"
+#include "Console.h"
 
 enum SndNtfy
 {
@@ -96,11 +97,15 @@ public:
 	void ProgressUpdate(int iParam);
 	void SendStatus(char *pszText);
 
+	void SetConsolePointer(CConsole *pConsole);
+
 	inline std::vector<SIGADDRESS> *GetAddressVector(void)
 	{
 		return &m_vecAddresses;
 	}
 protected:
+	CConsole *m_pConsole;
+
 	char *m_pszGameWindowName;
 	bool m_bLogEnabled;
 	bool m_bLogWithMessageBox;

@@ -2,7 +2,7 @@
 
 CTM2Hack *g_pTM2Hack;
 
-CTM2Hack::CTM2Hack(void) : cHack(GAMENAME)
+CTM2Hack::CTM2Hack(CConsole *pConsole) : cHack(GAMENAME)
 {
 	m_bBoostEnabled = false;
 	m_wBoostHotkey = 0x58; // X
@@ -16,9 +16,10 @@ CTM2Hack::CTM2Hack(void) : cHack(GAMENAME)
 	NullPos.fPosX = 0; NullPos.fPosZ = 0; NullPos.fPosY = 0;
 	m_SavedPos[0] = NullPos; m_SavedPos[1] = NullPos; m_SavedPos[2] = NullPos; m_SavedPos[3] = NullPos;
 
+	SetConsolePointer(pConsole);
+
 	this->Start();
 }
-
 
 CTM2Hack::~CTM2Hack(void)
 {
@@ -27,7 +28,7 @@ CTM2Hack::~CTM2Hack(void)
 void CTM2Hack::DefineAddresses(void)
 {
 	const DWORD TMMODULESTART = 0x00401000;
-	const DWORD TMMODULESIZE = 0x00f8e000;
+	const DWORD TMMODULESIZE = 0x00e61000;
 
 	m_vecAddresses.clear();
 
@@ -42,11 +43,11 @@ void CTM2Hack::DefineAddresses(void)
 	AddAddress("CPFix2", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x74\x2E\xFF\xB7\x00\x00\x00\x00\x8B\x8B", "xxxx????xx");
 	AddAddress("SHHack", TMMODULESTART, TMMODULESIZE, (BYTE*)"\xF3\x0F\x59\x15\x00\x00\x00\x00\xFF\x76\x04\x8B\xCF\xE8\x00\x00\x00\x00\x8B\x0E", "xxxx????xx?xxx????xx", 0x4, true);
 	AddAddress("Version", TMMODULESTART, TMMODULESIZE, (BYTE*)"\xC7\x44\x24\x00\x00\x00\x00\x00\xC7\x44\x24\x00\x31\x00\x00\x00\xE8\x00\x00\x00\x00\xC7\x44\x24\x00\xFF\xFF\xFF\xFF", "xxx?????xxx?xxxxx????xxx?xxxx", 0x4, true);
+	AddAddress("NadeoUnlock", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x83\xB8\xEC\x00\x00\x00\x05\x74\x5C", "xxxxxxxxx", 0x7);
 	AddAddress("NoWallFriction", TMMODULESTART, TMMODULESIZE, (BYTE*)"\xC7\x80\x00\x00\x00\x00\x01\x00\x00\x00\x83\x7E\x00\x00", "xx????xxxxxx?x");
-	AddAddress("NadeoUnlock", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x83\xB8\x8C\x00\x00\x00\x00\x75\x0B\x46", "xx????xxxx", 0x7);
-	AddAddress("TUVis", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x83\xB9\x00\x00\x00\x00\x00\x74\x1B\x68", "xx????xxxx", 0x7);
-	AddAddress("TUReal1", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x83\xB9\x00\x00\x00\x00\x00\x75\x0C\xC7\x45\x00\x01\x00\x00\x00", "xx????xxxxx?xxxx", 0x7);
-	AddAddress("TUReal2", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x83\xBA\x8C\x00\x00\x00\x00\x74\x23\x8B\x45\x00\x50", "xx????xxxxx?x", 0x7);
+	AddAddress("TUVis", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x74\x1C\xC7\x44\x24\x0C\x00\x00\x00\x00\xC7\x44\x24\x10\x14\x00\x00\x00\xE8","xxxxx?????xxx?xxxxx");
+	AddAddress("TURanking", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x0F\x84\x3B\x01\x00\x00\x8B\x87\xC0\x01\x00\x00\x3B\xC3\x0F\x84", "xx????xxxxxxxxxx");
+	AddAddress("TUStart", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x74\x2A\xE8\x00\x00\x00\x00\x8B\xCF\xC7\x87\xB0\x0D\x00\x00\x01\x00\x00\x00", "xxx????xxxxxxxxxxxx");
 	AddAddress("TimeFreezeChange", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x89\x10\x8B\x86\x00\x00\x00\x00\x85\xC0", "xxxx????xx");
 	AddAddress("TimeFreezeFinishFix", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x74\x2E\xFF\xB7", "xxxx");
 
@@ -65,10 +66,10 @@ void CTM2Hack::DefineAddresses(void)
 	SetAddress("SHHack", 0x0163FAA8);
 	SetAddress("Version", 0x0157C96C);
 	SetAddress("NoWallFriction", 0x0064C3C7);
-	SetAddress("NadeoUnlock", 0x00EEF61F);
-	SetAddress("TUVis", 0x00C8102C);
-	SetAddress("TUReal1", 0x00C814EE);
-	SetAddress("TUReal2", 0x00C816BE);
+	SetAddress("NadeoUnlock", 0x00D21FF6);
+	SetAddress("TUVis", 0x00BA6028);
+	SetAddress("TURanking", 0x00BA6344);
+	SetAddress("TUStart", 0x00BA64B3);
 	SetAddress("TimeFreezeChange", 0x00E989EC);
 	SetAddress("TimeFreezeFinishFix", 0x00E9F0FF);
 }
@@ -151,12 +152,11 @@ void CTM2Hack::UnlockTracks(void)
 	static CNop VisualFix;
 	VisualFix.Initialize(this, GetAddress("TUVis"), 2);
 
-	static CCodeChange RankingFix;
-	BYTE FIX[] = { 0xEB };
-	RankingFix.Initialize(this, GetAddress("TUReal1"), FIX, sizeof(FIX));
+	static CNop RankingFix;
+	RankingFix.Initialize(this, GetAddress("TURanking"), 6);
 
 	static CNop RealFix;
-	RealFix.Initialize(this, GetAddress("TUReal2"), 2);
+	RealFix.Initialize(this, GetAddress("TUStart"), 2);
 
 	if (!VisualFix.IsEnabled())
 	{
@@ -377,7 +377,7 @@ void CTM2Hack::Boost(bool bKeyDown)
 		{
 			SetBoostMulti(m_fBoostMulti);
 		}
-	}
+	}	
 }
 
 void CTM2Hack::BoostHack(void)

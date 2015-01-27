@@ -10,6 +10,7 @@ cHack::cHack(char *pszGameWindowName)
 		m_pszGameWindowName = pszGameWindowName;
 		m_bLogEnabled = false;
 		m_bLogWithMessageBox = false;
+		m_pConsole = nullptr;
 
 		SendStatusExtern = 0;
 		ProgressUpdateExtern = 0;
@@ -34,6 +35,10 @@ cHack::cHack(char *pszGameWindowName)
 
 cHack::~cHack(void)
 {
+}
+
+void cHack::SetConsolePointer(CConsole *pConsole) {
+	m_pConsole = pConsole;
 }
 
 void cHack::SoundUpdate(SndNtfy Message)
@@ -311,6 +316,12 @@ void cHack::LoadAddressesDLL(void)
 		return;
 	}
 
+	if (m_pConsole != nullptr)
+	{
+		m_pConsole->SetConsoleColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+		m_pConsole->print("\n****DEBUG-INFO***************************************************************\n* NAME                 *** Address     *** INFO                             *\n*****************************************************************************\n");
+	}
+
 	// Für jeden Address-Eintrag
 	for (unsigned int i = 0; i < m_vecAddresses.size(); i++)
 	{
@@ -322,23 +333,38 @@ void cHack::LoadAddressesDLL(void)
 		}
 
 		// Loader in Process laden, der dann die Funktion findPattern in der DLL pscan.dll ausführt mit dem parameter des Eintrags
-		if (InjectDLL::RemoteLoadLoader(this->m_hGameHandle, "pscan.dll", "findPattern", &this->m_vecAddresses[i], &hPipe))
-		{
+		InjectDLL::RLLStatus status = InjectDLL::RemoteLoadLoader(this->m_hGameHandle, "pscan.dll", "findPattern", &this->m_vecAddresses[i], &hPipe);
+
+		if (status == InjectDLL::RLL_SUCCESS)
 			ProgressUpdate(PBM_STEPIT);
-			if (m_bLogEnabled)
+
+		char *infotexts[] = {"Ok, address found", "No address found, using standard", "Unkown Error"};
+
+		char buffer[128];
+		sprintf_s(buffer, sizeof(buffer), "* %-22s:  %#-.8X   :  %-32s *\n", m_vecAddresses[i].szName, m_vecAddresses[i].dwAddress, infotexts[status]);
+		if (m_pConsole != nullptr)
+		{
+			m_pConsole->print(buffer);
+		}
+
+		if (m_bLogEnabled)
+		{
+
+			if (m_bLogWithMessageBox)
 			{
-				char buffer[128];
-				sprintf_s(buffer, sizeof(buffer), "%s | %X\n", m_vecAddresses[i].szName, m_vecAddresses[i].dwAddress);
-				if (m_bLogWithMessageBox)
-				{
-					MessageBox(NULL, buffer, "address", NULL);
-				}
-				else
-				{
-					add_log(buffer);
-				}
+				MessageBox(NULL, buffer, "address", NULL);
+			}
+			else
+			{
+				add_log(buffer);
 			}
 		}
+		
+	}
+
+	if (m_pConsole != nullptr)
+	{
+		m_pConsole->print("*****************************************************************************\n\n");
 	}
 	
 	// Pipe wieder schließen

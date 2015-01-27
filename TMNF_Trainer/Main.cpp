@@ -264,7 +264,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 	char szForegroundWindowTitle[64];
 	GetWindowText(hForeground, szForegroundWindowTitle, 64);
 
-	if (!strcmp(szForegroundWindowTitle, GAMENAME))
+	if (!strcmp(szForegroundWindowTitle, GAMENAME) || !strcmp(szForegroundWindowTitle, "TrackMania Nations Forever"))
 	{
 		KBDLLHOOKSTRUCT *pkbhs = (KBDLLHOOKSTRUCT *) lParam;
 	

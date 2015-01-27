@@ -18,6 +18,7 @@ void CNop::Initialize(cHack *pHack, UINT_PTR uiAddress, SIZE_T nSize)
 		pNops[i] = 0x90;
 	}
 
+	this->SetHack(pHack);
 	this->m_CodeChange.Initialize(pHack, uiAddress, pNops, nSize);
 
 	delete[] pNops;

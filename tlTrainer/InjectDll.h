@@ -31,8 +31,15 @@ namespace InjectDLL
 		char szName[32];
 	};
 
+	enum RLLStatus
+	{
+		RLL_SUCCESS,
+		RLL_NO_ADDRESS_FOUND,
+		RLL_OTHER_ERROR
+	};
+
 	bool GetDllPath(char *pszBuffer, char *pszDllName);
 	void SigAddressToDllVersion(SIGADDRESS_DLL *pSigDll, SIGADDRESS *pSigSrc);
 	__declspec(dllexport) bool RemoteLoadLib(HANDLE hProcessHandle, char *pszDllName);
-	bool RemoteLoadLoader(HANDLE hProcessHandle, char *pszDllName, char *pszFunctionName, SIGADDRESS *Address, HANDLE *hPipe);
+	RLLStatus RemoteLoadLoader(HANDLE hProcessHandle, char *pszDllName, char *pszFunctionName, SIGADDRESS *Address, HANDLE *hPipe);
 }

@@ -31,7 +31,7 @@ enum GROUND_ID {
 class CTM2Hack : public cHack
 {
 public:
-	CTM2Hack(void);
+	CTM2Hack(CConsole *pConsole);
 	~CTM2Hack(void);
 
 	virtual void DefineAddresses(void);

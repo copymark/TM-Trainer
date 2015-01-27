@@ -66,6 +66,9 @@
     <ClCompile Include="Option.cpp">
       <Filter>Quelldateien\Config</Filter>
     </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Error.h">
@@ -106,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>Headerdateien\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

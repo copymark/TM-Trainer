@@ -44,10 +44,10 @@
     <ClInclude Include="resource.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="TM2Hack.h">
+    <ClInclude Include="Splash.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Splash.h">
+    <ClInclude Include="TM2Hack.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

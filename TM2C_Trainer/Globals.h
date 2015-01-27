@@ -9,6 +9,7 @@ INCLUDES
 #include "resource.h"
 #include "Error.h"
 #include "Splash.h"
+#include "Console.h"
 
 #pragma comment (lib, "Comctl32.lib")
 
@@ -18,7 +19,7 @@ DEFINES
 #define TRAINERNAME "TM2 Ultra Trainer Copymark"
 #define GAMENAME "ManiaPlanet"
 #define VERSION "Version: 3.0.1.0"
-#define GAMEVERSION "Date=2014-04-29_23_00 Svn=56290 GameVersion=3.3.0"
+#define GAMEVERSION "Date=2014-12-12_12_00 Svn=59700 GameVersion=3.3.0"
 
 /*
 Globals
@@ -45,3 +46,5 @@ void InitConfig(void);
 
 
 void add_log(const char * fmt, ...);
+
+extern CConsole *g_pConsole;

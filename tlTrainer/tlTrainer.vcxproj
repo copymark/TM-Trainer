@@ -72,10 +72,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TLTRAINER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>mysql\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
@@ -85,6 +87,7 @@
     <ClCompile Include="cHack.cpp" />
     <ClCompile Include="CodeInjection.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="Console.cpp" />
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Helper.cpp" />
@@ -98,6 +101,7 @@
     <ClInclude Include="cHack.h" />
     <ClInclude Include="CodeInjection.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="Console.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="DllGlobals.h" />
     <ClInclude Include="Helper.h" />
