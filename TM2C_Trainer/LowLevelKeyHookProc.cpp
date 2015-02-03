@@ -16,9 +16,9 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 	
 		if (nCode == HC_ACTION && wParam == WM_KEYUP)
 		{
-			if (pkbhs->vkCode == LOBYTE(g_pTM2Hack->m_wBoostHotkey))
+			if (pkbhs->vkCode == LOBYTE(g_pTM2Hack->m_BoostHack.m_wBoostHotkey))
 			{
-				g_pTM2Hack->Boost(false);
+				g_pTM2Hack->m_BoostHack.Boost(false);
 			}
 			else if (pkbhs->vkCode == 0x4A) // j
 			{
@@ -71,9 +71,9 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		}
 		else if (nCode == HC_ACTION && wParam == WM_KEYDOWN)
 		{
-			if (pkbhs->vkCode == LOBYTE(g_pTM2Hack->m_wBoostHotkey))
+			if (pkbhs->vkCode == LOBYTE(g_pTM2Hack->m_BoostHack.m_wBoostHotkey))
 			{
-				g_pTM2Hack->Boost(true);
+				g_pTM2Hack->m_BoostHack.Boost(true);
 			}
 		}
 	}

@@ -20,6 +20,7 @@ public:
 private:
 	CTM2Hack *m_pHack;
 
+public:
 	bool m_bBoostEnabled;
 	WORD m_wBoostHotkey;
 	float m_fBoostMulti;

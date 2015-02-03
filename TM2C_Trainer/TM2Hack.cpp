@@ -55,7 +55,7 @@ void CTM2Hack::DefineAddresses(void)
 	SetAddress("NoGravity", 0x00FA12CC);
 	SetAddress("BaseP1", 0x18C1410);
 	SetAddress("MeterHack", 0x00EF98A7);
-	SetAddress("NoPlatCount", 0x00A57AAE); // WRONG!
+	SetAddress("NoPlatCount", 0x00CD2DE1);
 	SetAddress("NoGrasDirt", 0x0064C412);
 	SetAddress("NoFreeDrive", 0x0064B2FF);
 	SetAddress("BoostHack", 0x0064B2A3);

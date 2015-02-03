@@ -92,7 +92,7 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
 					}
 				case IDC_CHECK3: // BoostHack
 					{
-						g_pTM2Hack->BoostHack();
+						g_pTM2Hack->m_BoostHack.BoostHack();
 						break;
 					}
 				case IDC_BUTTON3: // Boost Options

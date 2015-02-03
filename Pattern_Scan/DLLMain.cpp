@@ -52,7 +52,7 @@ extern "C" __declspec(dllexport) void findPattern(SIGADDRESS_DLL pSig)
 		}
 	}
 
-	if (pSig.dwAddress == NULL && pSig.bGetOpcode)
+	if (pSig.dwAddress != NULL && pSig.bGetOpcode)
 	{
 		pSig.dwAddress = *(PDWORD)pSig.dwAddress;
 	}
