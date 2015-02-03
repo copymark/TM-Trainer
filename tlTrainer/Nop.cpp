@@ -12,6 +12,11 @@ CNop::~CNop(void)
 
 void CNop::Initialize(cHack *pHack, UINT_PTR uiAddress, SIZE_T nSize)
 {
+	if (this->IsInitialized())
+	{
+		return;
+	}
+
 	BYTE *pNops = new BYTE[nSize];
 	for (unsigned int i = 0; i < nSize; i++)
 	{

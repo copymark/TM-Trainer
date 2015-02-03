@@ -18,7 +18,6 @@ void InitConfig(void)
 	pConfig->AddOption(IDC_CHECK8, "No Gravity");
 	pConfig->AddOption(IDC_CHECK10, "Nadeo Ghosts Unlock");
 	pConfig->AddOption(IDC_CHECK11, "Track unlock");
-	pConfig->AddOption(IDC_CHECK12, "G15Applet");
 
 	pConfig->Load();
 }

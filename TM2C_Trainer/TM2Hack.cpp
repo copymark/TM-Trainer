@@ -2,13 +2,11 @@
 
 CTM2Hack *g_pTM2Hack;
 
-CTM2Hack::CTM2Hack(CConsole *pConsole) : cHack(GAMENAME)
+CTM2Hack::CTM2Hack(CConsole *pConsole) : 
+	cHack(GAMENAME), 
+	m_CarMover(this), 
+	m_BoostHack(this)
 {
-	m_bBoostEnabled = false;
-	m_wBoostHotkey = 0x58; // X
-	m_fBoostMulti = 5;
-	m_fBoostMultiHack = 5;
-	m_bUseBoostMultiHack = false;
 	m_bNoGravityEnabled = false;
 	m_wNoGravityHotkey = 0x46; // F
 
@@ -34,7 +32,7 @@ void CTM2Hack::DefineAddresses(void)
 
 	AddAddress("BaseP1", TMMODULESTART, TMMODULESIZE, (BYTE*)"\xA1\x00\x00\x00\x00\x83\x7C\x01\x48\x00\x74\x46\xF3\x0F\x10\x87", "x????xxx?xx?xxxx", 0x1, true);
 	AddAddress("MeterHack", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x89\x83\x00\x00\x00\x00\x85\xED\x74\x39", "xx????xxxx");
-	//AddAddress("NoPlatCount", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x40\x3D\xE7\x03\x00\x00", "xxxxxx");
+	AddAddress("NoPlatCount", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x40\x3B\xC1\x0F\x43\xC1", "xxxxxx");
 	AddAddress("NoGrasDirt", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x66\x8B\x47\x0C\x66\x89\x46\x78\x8B\x47", "xxx?xxx?xx");
 	AddAddress("NoFreeDrive", TMMODULESTART, TMMODULESIZE, (BYTE*)"\xC7\x86\x00\x00\x00\x00\x01\x00\x00\x00\x83\xBE\xA4\x03\x00\x00\x00\x74\x14", "xx????xxxxxx????xxx");
 	AddAddress("NoGravity", TMMODULESTART, TMMODULESIZE, (BYTE*)"\x89\x7C\x24\x20\xF3\x0F\x11\x46\x28\xF3\x0F\x10\x46\x2C\xF3\x0F\x58\xC3", "xxx?xxxx?xxxx?xxxx", 0x4);
@@ -57,7 +55,7 @@ void CTM2Hack::DefineAddresses(void)
 	SetAddress("NoGravity", 0x00FA12CC);
 	SetAddress("BaseP1", 0x18C1410);
 	SetAddress("MeterHack", 0x00EF98A7);
-	AddAddress("NoPlatCount", 0x00A57AAE); // WRONG!
+	SetAddress("NoPlatCount", 0x00A57AAE); // WRONG!
 	SetAddress("NoGrasDirt", 0x0064C412);
 	SetAddress("NoFreeDrive", 0x0064B2FF);
 	SetAddress("BoostHack", 0x0064B2A3);
@@ -355,56 +353,6 @@ void CTM2Hack::NoGravity(bool playSound)
 	}
 }
 
-void CTM2Hack::Boost(bool bKeyDown)
-{
-	if (!m_bBoostEnabled)
-		return;
-
-	if (bKeyDown)
-	{
-		if (m_bUseBoostMultiHack)
-		{
-			SetBoostMulti(m_fBoostMultiHack);
-		}
-		DWORD dwOffsets[] = {0x4C, 0xC8, 0x7C, 0x38, 0x198};
-		DWORD dwAddressGroundNum = ReadPointer(GetAddress("BaseP1"), dwOffsets, sizeof(dwOffsets));
-		BYTE BoostValue = GROUND_ID::BOOSTER;	
-		WriteAddress(dwAddressGroundNum, &BoostValue, sizeof(BoostValue));
-	}
-	else
-	{
-		if (m_bUseBoostMultiHack)
-		{
-			SetBoostMulti(m_fBoostMulti);
-		}
-	}	
-}
-
-void CTM2Hack::BoostHack(void)
-{
-	static CCodeInjection Fix1;
-
-	BYTE NewCode[] =	{	0x81, 0x64, 0x24, 0x1C, 0xFF, 0xFF, 0xFF, 0x7F,		// and [esp+1C],7FFFFFFF
-							0xF3, 0x0F, 0x59, 0x44, 0x24, 0x1C,					// mulss xmm0, [esp+1C]
-							0xE9, 0x00, 0x00, 0x00, 0x00						// jmp #back#
-						};
-
-	Fix1.Initialize(this, GetAddress("BoostHack"), NewCode, sizeof(NewCode), 6);
-
-	if (!m_bBoostEnabled)
-	{
-		Fix1.Enable();
-		m_bBoostEnabled = true;
-		SoundUpdate(SOUND_ON);
-	}
-	else
-	{
-		Fix1.Disable();
-		m_bBoostEnabled = false;
-		SoundUpdate(SOUND_OFF);
-	}
-}
-
 void CTM2Hack::NoGrasDrive(void)
 {
 	BYTE INJECT[] = {
@@ -430,35 +378,6 @@ void CTM2Hack::NoGrasDrive(void)
 		NoGrasDirtInject.Disable();
 		SoundUpdate(SOUND_OFF);
 	}
-}
-
-float CTM2Hack::GetBoostMulti(void)
-{
-	DWORD dwOffsetsSpeed[] = {0x4C, 0xC8, 0x80, 0x28, 0xC8};
-	float fBoostMulti = 5;
-	DWORD dwBoostOptionAddress = ReadPointer(GetAddress("BaseP1"), dwOffsetsSpeed, sizeof(dwOffsetsSpeed));
-	ReadAddress(dwBoostOptionAddress, &fBoostMulti, sizeof(fBoostMulti));
-	return fBoostMulti;
-}
-void CTM2Hack::SetBoostMulti(float fNewMulti)
-{
-	DWORD dwOffsetsSpeed[] = {0x4C, 0xC8, 0x80, 0x28, 0xC8};
-	DWORD dwBoostOptionAddress = ReadPointer(GetAddress("BaseP1"), dwOffsetsSpeed, sizeof(dwOffsetsSpeed));
-	WriteAddress(dwBoostOptionAddress, &fNewMulti, sizeof(fNewMulti));
-}
-int CTM2Hack::GetBoostDuration(void)
-{
-	DWORD dwOffsetsSpeed[] = {0x4C, 0xC8, 0x80, 0x28, 0xCC};
-	int iBoostDuration = 250;
-	DWORD dwBoostOptionAddress = ReadPointer(GetAddress("BaseP1"), dwOffsetsSpeed, sizeof(dwOffsetsSpeed));
-	ReadAddress(dwBoostOptionAddress, &iBoostDuration, sizeof(iBoostDuration));
-	return iBoostDuration;
-}
-void CTM2Hack::SetBoostDuration(int iNewDuration)
-{
-	DWORD dwOffsetsSpeed[] = {0x4C, 0xC8, 0x80, 0x28, 0xCC};
-	DWORD dwBoostOptionAddress = ReadPointer(GetAddress("BaseP1"), dwOffsetsSpeed, sizeof(dwOffsetsSpeed));
-	WriteAddress(dwBoostOptionAddress, &iNewDuration, sizeof(iNewDuration));
 }
 
 void CTM2Hack::SwitchNoGravityStatus(void)

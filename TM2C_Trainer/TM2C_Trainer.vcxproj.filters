@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headerdateien\Features">
+      <UniqueIdentifier>{d1ab487d-bca2-41a0-874e-e55370a2a97b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Features">
+      <UniqueIdentifier>{8e896474-f5fb-4abe-85cd-bdbfd5f5c3c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -36,6 +42,12 @@
     <ClCompile Include="StartUpConfig.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="CarMover.cpp">
+      <Filter>Quelldateien\Features</Filter>
+    </ClCompile>
+    <ClCompile Include="BoostHack.cpp">
+      <Filter>Quelldateien\Features</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -50,6 +62,12 @@
     <ClInclude Include="TM2Hack.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="BoostHack.h">
+      <Filter>Headerdateien\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="CarMover.h">
+      <Filter>Headerdateien\Features</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ManiaPlanet_152.ico">
@@ -62,9 +80,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Release\mpsplash.bmp">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
     <Image Include="mpsplash.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
