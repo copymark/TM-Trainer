@@ -15,15 +15,14 @@ CCarMover::~CCarMover()
 
 void CCarMover::SwitchStatus(void)
 {
-	static CNop PosChangeFixes[4];
-	PosChangeFixes[0].Initialize(m_pHack, 0x5334EA, 28);
-	PosChangeFixes[1].Initialize(m_pHack, 0x5337BE, 30);
-	PosChangeFixes[2].Initialize(m_pHack, 0x5335C8, 30);
-	PosChangeFixes[3].Initialize(m_pHack, 0x53358F, 30);
+	static CNop PosChangeFixes[3];
+	PosChangeFixes[0].Initialize(m_pHack, m_pHack->GetAddress("NoGravity")-24, 5);
+	PosChangeFixes[1].Initialize(m_pHack, m_pHack->GetAddress("NoGravity"), 5);
+	PosChangeFixes[2].Initialize(m_pHack, m_pHack->GetAddress("NoGravity")+14, 5);
 
 	if (!m_bEnabled)
 	{
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			PosChangeFixes[i].Enable();
 		}
@@ -32,7 +31,7 @@ void CCarMover::SwitchStatus(void)
 	}
 	else
 	{
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			PosChangeFixes[i].Disable();
 		}

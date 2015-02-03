@@ -24,6 +24,10 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 			{
 				SendDlgItemMessage(g_hWindow, IDC_BUTTON2, BM_CLICK, NULL, NULL);
 			}
+			else if (pkbhs->vkCode == 0x46)
+			{
+				g_pTM2Hack->m_CarMover.SwitchStatus();
+			}
 			else if (pkbhs->vkCode == LOBYTE(g_pTM2Hack->m_wNoGravityHotkey))
 			{
 				if (g_pTM2Hack->m_bNoGravityEnabled)
@@ -74,6 +78,30 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 			if (pkbhs->vkCode == LOBYTE(g_pTM2Hack->m_BoostHack.m_wBoostHotkey))
 			{
 				g_pTM2Hack->m_BoostHack.Boost(true);
+			}
+			else if (pkbhs->vkCode == VK_UP)
+			{
+				g_pTM2Hack->m_CarMover.MoveAxis(AXES::X_AXIS, true);
+			}
+			else if (pkbhs->vkCode == VK_DOWN)
+			{
+				g_pTM2Hack->m_CarMover.MoveAxis(AXES::X_AXIS, false);
+			}
+			else if (pkbhs->vkCode == VK_NEXT)
+			{
+				g_pTM2Hack->m_CarMover.MoveAxis(AXES::Z_AXIS, false);
+			}
+			else if (pkbhs->vkCode == VK_PRIOR)
+			{
+				g_pTM2Hack->m_CarMover.MoveAxis(AXES::Z_AXIS, true);
+			}
+			else if (pkbhs->vkCode == VK_LEFT)
+			{
+				g_pTM2Hack->m_CarMover.MoveAxis(AXES::Y_AXIS, false);
+			}
+			else if (pkbhs->vkCode == VK_RIGHT)
+			{
+				g_pTM2Hack->m_CarMover.MoveAxis(AXES::Y_AXIS, true);
 			}
 		}
 	}
