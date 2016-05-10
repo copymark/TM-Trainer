@@ -17,7 +17,7 @@ void CNop::Initialize(cHack *pHack, UINT_PTR uiAddress, SIZE_T nSize)
 		return;
 	}
 
-	BYTE *pNops = new BYTE[nSize];
+	BYTE *pNops = (BYTE*)malloc(nSize * sizeof(BYTE));
 	for (unsigned int i = 0; i < nSize; i++)
 	{
 		pNops[i] = 0x90;
@@ -26,7 +26,7 @@ void CNop::Initialize(cHack *pHack, UINT_PTR uiAddress, SIZE_T nSize)
 	this->SetHack(pHack);
 	this->m_CodeChange.Initialize(pHack, uiAddress, pNops, nSize);
 
-	delete[] pNops;
+	free(pNops);
 
 	this->setIntializedStatus(true);
 }

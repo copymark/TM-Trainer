@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TMUF_Trainer", "TM_Trainer\TM_Trainer.vcxproj", "{6ECD835D-74E1-49E7-9E36-A5DA75CDD516}"
 EndProject
@@ -16,6 +16,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TMNF_Trainer", "TMNF_Trainer\TMNF_Trainer.vcxproj", "{33C1C5B1-30E4-4254-8F6C-5BEC49116F5B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TM2_Trainer", "TM2C_Trainer\TM2C_Trainer.vcxproj", "{E0D39EB4-64B1-4F2B-8844-61E731C1C8A4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TMTurbo_Trainer", "TMTurbo_Trainer\TMTurbo_Trainer.vcxproj", "{7C2B3DAD-082A-479C-B00A-096A497EC133}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TMTurbo_Inject", "TMTurbo_Inject\TMTurbo_Inject.vcxproj", "{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +103,30 @@ Global
 		{E0D39EB4-64B1-4F2B-8844-61E731C1C8A4}.Release|Win32.ActiveCfg = Release|Win32
 		{E0D39EB4-64B1-4F2B-8844-61E731C1C8A4}.Release|Win32.Build.0 = Release|Win32
 		{E0D39EB4-64B1-4F2B-8844-61E731C1C8A4}.Release|x64.ActiveCfg = Release|Win32
+		{7C2B3DAD-082A-479C-B00A-096A497EC133}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7C2B3DAD-082A-479C-B00A-096A497EC133}.Debug|Win32.Build.0 = Debug|Win32
+		{7C2B3DAD-082A-479C-B00A-096A497EC133}.Debug|x64.ActiveCfg = Debug|x64
+		{7C2B3DAD-082A-479C-B00A-096A497EC133}.Debug|x64.Build.0 = Debug|x64
+		{7C2B3DAD-082A-479C-B00A-096A497EC133}.Release_XP|Win32.ActiveCfg = Release|Win32
+		{7C2B3DAD-082A-479C-B00A-096A497EC133}.Release_XP|Win32.Build.0 = Release|Win32
+		{7C2B3DAD-082A-479C-B00A-096A497EC133}.Release_XP|x64.ActiveCfg = Release|x64
+		{7C2B3DAD-082A-479C-B00A-096A497EC133}.Release_XP|x64.Build.0 = Release|x64
+		{7C2B3DAD-082A-479C-B00A-096A497EC133}.Release|Win32.ActiveCfg = Release|Win32
+		{7C2B3DAD-082A-479C-B00A-096A497EC133}.Release|Win32.Build.0 = Release|Win32
+		{7C2B3DAD-082A-479C-B00A-096A497EC133}.Release|x64.ActiveCfg = Release|x64
+		{7C2B3DAD-082A-479C-B00A-096A497EC133}.Release|x64.Build.0 = Release|x64
+		{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}.Debug|Win32.Build.0 = Debug|Win32
+		{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}.Debug|x64.ActiveCfg = Debug|x64
+		{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}.Debug|x64.Build.0 = Debug|x64
+		{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}.Release_XP|Win32.ActiveCfg = Release|Win32
+		{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}.Release_XP|Win32.Build.0 = Release|Win32
+		{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}.Release_XP|x64.ActiveCfg = Release|x64
+		{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}.Release_XP|x64.Build.0 = Release|x64
+		{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}.Release|Win32.ActiveCfg = Release|Win32
+		{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}.Release|Win32.Build.0 = Release|Win32
+		{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}.Release|x64.ActiveCfg = Release|x64
+		{D4DA5D66-F6A0-44FB-8F39-97C6F8990B0E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
