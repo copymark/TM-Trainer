@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Windows.h>
+#include "Globals.h"
 #include "MemTools.h"
 #include "Address.h"
 

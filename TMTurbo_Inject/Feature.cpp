@@ -17,8 +17,14 @@ DWORD CFeature::getAddress(char* szName)
 	return NULL;
 }
 
+void CFeature::addCodeChange(CMemTool* newCC)
+{
+	m_vecCodeChanges.push_back(newCC);
+}
+
 void CFeature::initialize()
 {
+	setupAddresses();
 	for (auto add : m_vecAddresses) {
 		add->initialize();
 	}
@@ -42,15 +48,28 @@ CFeature::~CFeature()
 	{
 		delete add;
 	}
+	
+	for (auto cc : m_vecCodeChanges)
+	{
+		delete cc;
+	}
 }
 
 void CFeature::enable()
 {
+	for (auto change : m_vecCodeChanges)
+	{
+		change->enable();
+	}
 	m_bEnabled = true;
 }
 
 void CFeature::disable()
 {
+	for (auto change : m_vecCodeChanges)
+	{
+		change->disable();
+	}
 	m_bEnabled = false;
 }
 

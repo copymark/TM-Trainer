@@ -15,10 +15,13 @@ private:
 	int m_iButtonId = -1;
 
 	vector<CAddress*> m_vecAddresses;
+	vector<CMemTool*> m_vecCodeChanges;
 
 protected:
 	void addAddress(CAddress* adr);
 	DWORD getAddress(char* szName);
+
+	void addCodeChange(CMemTool* newCC);
 
 	virtual void initialize();
 	virtual void setupAddresses() = 0;

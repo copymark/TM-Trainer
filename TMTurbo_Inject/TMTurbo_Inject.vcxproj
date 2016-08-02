@@ -143,17 +143,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Address.cpp" />
+    <ClCompile Include="CodeModify.cpp" />
+    <ClCompile Include="CodeNop.cpp" />
     <ClCompile Include="Console.cpp" />
+    <ClCompile Include="d3d11hook.cpp" />
+    <ClCompile Include="DisableEngineOff.cpp" />
     <ClCompile Include="Feature.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MemTools.cpp" />
+    <ClCompile Include="NoWallFriction.cpp" />
     <ClCompile Include="PreciseTime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Address.h" />
+    <ClInclude Include="CodeModify.h" />
+    <ClInclude Include="CodeNop.h" />
     <ClInclude Include="Console.h" />
+    <ClInclude Include="d3d11hook.h" />
+    <ClInclude Include="DisableEngineOff.h" />
     <ClInclude Include="Feature.h" />
+    <ClInclude Include="Globals.h" />
     <ClInclude Include="MemTools.h" />
+    <ClInclude Include="NoWallFriction.h" />
     <ClInclude Include="PreciseTime.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

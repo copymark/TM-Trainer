@@ -1,17 +1,13 @@
 #pragma once
 #include "Feature.h"
-
-
-class CPreciseTime :
+class CDisableEngineOff :
 	public CFeature
 {
-private:
-	BYTE* m_SavedData;
+public:
+	CDisableEngineOff();
+	~CDisableEngineOff();
 protected:
 	virtual void setupAddresses();
 	virtual void initialize();
-public:
-	CPreciseTime();
-	~CPreciseTime();
 };
 

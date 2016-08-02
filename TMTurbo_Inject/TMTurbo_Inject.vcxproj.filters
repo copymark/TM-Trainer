@@ -39,6 +39,21 @@
     <ClCompile Include="Console.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="CodeModify.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="CodeNop.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="NoWallFriction.cpp">
+      <Filter>Quelldateien\Features</Filter>
+    </ClCompile>
+    <ClCompile Include="DisableEngineOff.cpp">
+      <Filter>Quelldateien\Features</Filter>
+    </ClCompile>
+    <ClCompile Include="d3d11hook.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MemTools.h">
@@ -54,6 +69,24 @@
       <Filter>Headerdateien\Features</Filter>
     </ClInclude>
     <ClInclude Include="Console.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="CodeModify.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="CodeNop.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="NoWallFriction.h">
+      <Filter>Headerdateien\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="DisableEngineOff.h">
+      <Filter>Headerdateien\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d11hook.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

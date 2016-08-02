@@ -1,4 +1,6 @@
 #include "PreciseTime.h"
+#include "CodeModify.h"
+#include "CodeNop.h"
 
 
 
@@ -11,54 +13,25 @@ void CPreciseTime::setupAddresses()
 void CPreciseTime::initialize()
 {
 	CFeature::initialize();
-	m_SavedData = new BYTE[14];
-	//DWORD oldProtect;
-	//VirtualProtect((void*)getAddress("codefix"), 14, PAGE_EXECUTE_READWRITE, &oldProtect);
-	memcpy(m_SavedData, (void*)getAddress("codefix"), 14);
-	//VirtualProtect((void*)getAddress("codefix"), 14, oldProtect, &oldProtect);
+	
+	BYTE fix1[2] = {0x8b, 0xd7}; // mov edx, edi
+	addCodeChange(new CCodeModify(getAddress("codefix"), fix1, sizeof(fix1)));
+	addCodeChange(new CCodeNop(getAddress("codefix") + 0x2, 5));
+	addCodeChange(new CCodeNop(getAddress("codefix") + 0xB, 3));
+
+	BYTE asciiThree = 0x33;
+	addCodeChange(new CCodeModify(getAddress("datafix") + 0xC, &asciiThree, sizeof(asciiThree)));
+	addCodeChange(new CCodeModify(getAddress("datafix") + 0x21, &asciiThree, sizeof(asciiThree)));
 }
 
 CPreciseTime::CPreciseTime()
 {
-	setButtonId(VK_INSERT);
-	setupAddresses();
+	setButtonId(VK_NUMPAD4);
 	initialize();
 }
 
 
 CPreciseTime::~CPreciseTime()
 {
-}
-
-void CPreciseTime::enable()
-{
-	/*
-	 * Delete rounding to 10
-	 */
-	CMemTools::fillWithNops(getAddress("codefix"), 7);
-	BYTE fix1[2] = {0x8b, 0xd7}; // mov edx, edi
-	CMemTools::changeCode(getAddress("codefix"), fix1, 2);
-
-	CMemTools::fillWithNops(getAddress("codefix")+0xB, 3);
-
-	/*
-	 * Change %s%d:%.2d.%.2d to %s%d:%.2d.%.3d
-	 */
-	BYTE val = 0x33; // 3
-	CMemTools::changeCode(getAddress("datafix")+0xC, &val, 1);
-	CMemTools::changeCode(getAddress("datafix")+0x21, &val, 1);
-	CFeature::enable();
-}
-
-void CPreciseTime::disable()
-{
-	CMemTools::changeCode(getAddress("codefix"), m_SavedData, 14);
-	/*
-	* Change %s%d:%.2d.%.3d to %s%d:%.2d.%.2d
-	*/
-	BYTE val = 0x32; // 2
-	CMemTools::changeCode(getAddress("datafix") + 0xC, &val, 1);
-	CMemTools::changeCode(getAddress("datafix") + 0x21, &val, 1);
-	CFeature::disable();
 }
 

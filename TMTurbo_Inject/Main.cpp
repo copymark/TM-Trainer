@@ -6,8 +6,9 @@
 #include "MemTools.h"
 #include "Console.h"
 #include "PreciseTime.h"
+#include "d3d11hook.h"
 
-CConsole* g_pConsole;
+CConsole* g_pConsole = nullptr;
 
 void InitConsole()
 {
@@ -15,17 +16,17 @@ void InitConsole()
 
 	g_pConsole->SetConsoleColor(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 	g_pConsole->print("##############################################################################\n");
-	g_pConsole->print("##    ______        ______  ______           _##\n");
-	g_pConsole->print("##  / _  __ / ___ ___ / _  __ / / _  __ / ________ _(_)___  ___  _____##\n");
-	g_pConsole->print("##    / / / __ `__ \\ / / _____ / / / ___ / __ `/ / __ \\ / _ \\ / ___ /##\n");
-	g_pConsole->print("##   / / / / / / / / / _____ / / / / / / _ / / / / / / __ / /##\n");
+	g_pConsole->print("##    ______          ______    ______                                     _##\n");
+	g_pConsole->print("##  / _  __ /___ ___/ _  __ / / _  __ /________ _(_)___  ___  _____         ##\n");
+	g_pConsole->print("##    / / / __ `__  \\ / / _____ / / / ___ / __ `/ / __ \\ / _ \\ / ___ /    ##\n");
+	g_pConsole->print("##   / / / / / / /   / /  _____/ / / / / / _ / / / / / / __ / /             ##\n");
 	g_pConsole->print("##  / _ / / _ / / _ / / _ / _ / / _ / / _ / \\__, _ / _ / _ / / _ / \\___ / _ /##\n");
 	g_pConsole->print("##############################################################################\n");
 }
 
 LPTHREAD_START_ROUTINE HookThread(LPVOID lpParam)
 {
-	//InitConsole();
+	InitConsole();
 	
 	CPreciseTime *pFeaturePreciseTime = new CPreciseTime();
 
@@ -44,9 +45,11 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 	{
 	case DLL_PROCESS_ATTACH:
 		CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)HookThread, NULL, NULL, NULL);
+		CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)InitializeD3D11Hook, NULL, NULL, NULL);
 	case DLL_THREAD_ATTACH:
 	case DLL_THREAD_DETACH:
 	case DLL_PROCESS_DETACH:
+		onD3D11Detach();
 		break;
 	}
 	return TRUE;

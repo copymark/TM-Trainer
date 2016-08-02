@@ -13,8 +13,13 @@ CConsole::~CConsole()
 	FreeConsole();
 }
 
-void CConsole::print(char *text) {
-	WriteConsole(m_OUT_HANDLE, text, strlen(text), NULL, NULL);
+void CConsole::print(const char* fmt, ...) {
+	char buffer[256];
+	va_list args;
+	va_start(args, fmt);
+	vsnprintf(buffer, sizeof(buffer), fmt, args);
+	WriteConsole(m_OUT_HANDLE, buffer, strlen(buffer), NULL, NULL);
+	va_end(args);
 }
 
 void CConsole::SetConsoleColor(WORD layout) {

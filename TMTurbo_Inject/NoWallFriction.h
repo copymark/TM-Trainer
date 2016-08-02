@@ -1,17 +1,13 @@
 #pragma once
 #include "Feature.h"
-
-
-class CPreciseTime :
+class CNoWallFriction :
 	public CFeature
 {
-private:
-	BYTE* m_SavedData;
+public:
+	CNoWallFriction();
+	~CNoWallFriction();
 protected:
 	virtual void setupAddresses();
 	virtual void initialize();
-public:
-	CPreciseTime();
-	~CPreciseTime();
 };
 
